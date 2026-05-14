@@ -931,6 +931,14 @@ function cerrarModal() {
 
 function confirmarGuardar() {
   cerrarModal();
+
+  // Detectar emails nuevos ANTES de guardar (comparar con estado actual)
+  var eje = state.ejes.find(function(e) { return e.nombre === state.ejeActivo; });
+  var destAnteriores = eje ? eje.destinatarios.map(function(e) { return e.toLowerCase().trim(); }) : [];
+  var emailsNuevos   = state.destEdit.filter(function(e) {
+    return !destAnteriores.includes(e.toLowerCase().trim());
+  });
+
   mostrarLoading("Guardando cambios...");
 
   guardarEje(state.ejeActivo, state.kwEdit, state.destEdit, state.orgEdit)
@@ -948,11 +956,41 @@ function confirmarGuardar() {
       if (meta) meta.innerHTML = 'Último cambio guardado: <strong>' + state.ultimoCambio + '</strong>';
       ocultarLoading();
       showToast("Cambios guardados correctamente", "ok");
+
+      // Disparar bienvenida si hay emails nuevos
+      if (emailsNuevos.length > 0) {
+        dispararBienvenida(state.ejeActivo, emailsNuevos);
+      }
     })
     .catch(function(err) {
       ocultarLoading();
       showToast("Error: " + err.message, "err");
     });
+}
+
+function dispararBienvenida(ejeNombre, emailsNuevos) {
+  var WEBAPP_URL = "https://script.google.com/a/macros/nfq.es/s/AKfycbxO1AIZ1KfBRKKQ1u_kcjLL_--OTxPDhhoDqyabYc5RwhJKVnuqjF9rhvKqpt9FgVCU9A/exec";
+
+  fetch(WEBAPP_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      accion:  "enviarbienvenida",
+      eje:     ejeNombre,
+      emails:  emailsNuevos,
+    }),
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(res) {
+    if (res.ok) {
+      showToast("Bienvenida enviada a " + emailsNuevos.length + " destinatario(s)", "ok");
+    } else {
+      console.warn("Bienvenida no enviada:", res.error);
+    }
+  })
+  .catch(function(err) {
+    console.warn("Error llamando al Web App para bienvenida:", err.message);
+  });
 }
 
 // ============================================================
