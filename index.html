@@ -337,8 +337,9 @@ function iniciarRedirectFlow() {
     client_id:     CLIENT_ID,
     redirect_uri:  REDIRECT_URI,
     response_type: "token",
-    scope:         SCOPES,
+    scope:         "openid email profile " + SCOPES,
     prompt:        "select_account",
+    hd:            DOMINIO_NFQ,
   });
   window.location.href = "https://accounts.google.com/o/oauth2/v2/auth?" + params.toString();
 }
