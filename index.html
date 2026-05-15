@@ -6,18 +6,15 @@
 <title>NFQ · Portal de Licitaciones</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
-<script src="https://accounts.google.com/gsi/client" async defer></script>
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
   --navy:      #0f1f3d;
-  --navy-lt:   #1a3260;
   --orange:    #E9724C;
   --orange-dk: #d4603b;
   --crimson:   #D13B5F;
   --blue:      #217BEE;
   --blue-lt:   #DEE5FE;
-  --green:     #1a9e6a;
   --cream:     #f5f4f0;
   --white:     #ffffff;
   --border:    #dddad3;
@@ -32,143 +29,44 @@
   --shadow:    0 1px 3px rgba(0,0,0,0.07), 0 1px 2px rgba(0,0,0,0.04);
   --shadow-md: 0 4px 16px rgba(0,0,0,0.10);
 }
- 
 body { font-family: var(--font-body); font-size: 14px; background: var(--cream); color: var(--text); min-height: 100vh; }
  
 /* ── LOGIN ───────────────────────────────────────────────── */
 #login-screen {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  min-height: 100vh; display: flex; align-items: center; justify-content: center;
   background: var(--navy);
-  background-image:
-    radial-gradient(ellipse at 20% 50%, rgba(33,123,238,0.15) 0%, transparent 60%),
-    radial-gradient(ellipse at 80% 20%, rgba(233,114,76,0.10) 0%, transparent 50%);
+  background-image: radial-gradient(ellipse at 20% 50%, rgba(33,123,238,0.15) 0%, transparent 60%), radial-gradient(ellipse at 80% 20%, rgba(233,114,76,0.10) 0%, transparent 50%);
 }
-.login-box {
-  background: var(--white);
-  border-radius: 16px;
-  padding: 48px 52px;
-  width: 420px;
-  max-width: 95vw;
-  box-shadow: 0 24px 64px rgba(0,0,0,0.3);
-  text-align: center;
-}
-.login-logo {
-  font-family: var(--font-head);
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 28px;
-}
-.login-title {
-  font-family: var(--font-head);
-  font-size: 26px;
-  font-weight: 700;
-  color: var(--navy);
-  margin-bottom: 8px;
-  line-height: 1.2;
-}
-.login-sub {
-  font-size: 13px;
-  color: var(--muted);
-  margin-bottom: 36px;
-  line-height: 1.6;
-}
-.login-divider {
-  border: none;
-  border-top: 1px solid var(--border);
-  margin: 28px 0;
-}
-.login-note {
-  font-size: 11px;
-  color: var(--muted);
-  line-height: 1.7;
-}
+.login-box { background: var(--white); border-radius: 16px; padding: 48px 52px; width: 420px; max-width: 95vw; box-shadow: 0 24px 64px rgba(0,0,0,0.3); text-align: center; }
+.login-logo { font-family: var(--font-head); font-size: 13px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 28px; }
+.login-title { font-family: var(--font-head); font-size: 26px; font-weight: 700; color: var(--navy); margin-bottom: 8px; line-height: 1.2; }
+.login-sub { font-size: 13px; color: var(--muted); margin-bottom: 36px; line-height: 1.6; }
+.login-divider { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
+.login-note { font-size: 11px; color: var(--muted); line-height: 1.7; }
 .login-note strong { color: var(--navy); }
-.login-error {
-  background: #fdeef2;
-  border: 1px solid #f5c0ce;
-  border-radius: var(--radius);
-  padding: 10px 14px;
-  font-size: 12px;
-  color: var(--crimson);
-  margin-bottom: 16px;
-  display: none;
-}
+.login-error { background: #fdeef2; border: 1px solid #f5c0ce; border-radius: var(--radius); padding: 10px 14px; font-size: 12px; color: var(--crimson); margin-bottom: 16px; display: none; }
+.btn-login-google { display: flex; align-items: center; justify-content: center; gap: 12px; width: 100%; height: 48px; padding: 0 20px; background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); font-family: var(--font-body); font-size: 14px; font-weight: 500; color: var(--text); cursor: pointer; transition: background 0.12s, box-shadow 0.12s; }
+.btn-login-google:hover { background: #f8f7f4; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+.login-loading { display: none; align-items: center; justify-content: center; gap: 10px; font-size: 13px; color: var(--muted); padding: 12px 0; }
+.login-loading.show { display: flex; }
+.login-spinner { width: 18px; height: 18px; border: 2px solid var(--blue-lt); border-top-color: var(--blue); border-radius: 50%; animation: spin 0.75s linear infinite; }
  
-/* ── APP SHELL ───────────────────────────────────────────── */
+/* ── APP ─────────────────────────────────────────────────── */
 #app { display: none; }
- 
-.topbar {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-  height: var(--topbar);
-  background: var(--navy);
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 28px;
-  border-bottom: 1px solid rgba(255,255,255,0.06);
-}
-.topbar-logo {
-  font-family: var(--font-head);
-  font-size: 15px; font-weight: 600; color: #fff;
-  letter-spacing: 0.03em;
-  display: flex; align-items: center; gap: 10px;
-}
+.topbar { position: fixed; top: 0; left: 0; right: 0; z-index: 200; height: var(--topbar); background: var(--navy); display: flex; align-items: center; justify-content: space-between; padding: 0 28px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+.topbar-logo { font-family: var(--font-head); font-size: 15px; font-weight: 600; color: #fff; letter-spacing: 0.03em; display: flex; align-items: center; gap: 10px; }
 .topbar-logo-sep { opacity: 0.3; font-weight: 400; }
 .topbar-logo-sub { font-size: 12px; font-weight: 400; opacity: 0.6; letter-spacing: 0; }
 .topbar-right { display: flex; align-items: center; gap: 12px; }
-.topbar-user {
-  display: flex; align-items: center; gap: 9px;
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 24px;
-  padding: 5px 14px 5px 6px;
-}
-.topbar-avatar {
-  width: 28px; height: 28px; border-radius: 50%;
-  background: var(--blue);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 11px; font-weight: 600; color: #fff;
-  font-family: var(--font-head); flex-shrink: 0;
-}
+.topbar-user { display: flex; align-items: center; gap: 9px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1); border-radius: 24px; padding: 5px 14px 5px 6px; }
+.topbar-avatar { width: 28px; height: 28px; border-radius: 50%; background: var(--blue); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; color: #fff; font-family: var(--font-head); flex-shrink: 0; }
 .topbar-email { font-size: 12px; color: rgba(255,255,255,0.8); }
-.btn-logout {
-  background: none; border: 1px solid rgba(255,255,255,0.15);
-  border-radius: var(--radius); padding: 5px 12px;
-  font-size: 11px; color: rgba(255,255,255,0.5);
-  cursor: pointer; font-family: var(--font-body);
-  transition: all 0.15s;
-}
+.btn-logout { background: none; border: 1px solid rgba(255,255,255,0.15); border-radius: var(--radius); padding: 5px 12px; font-size: 11px; color: rgba(255,255,255,0.5); cursor: pointer; font-family: var(--font-body); transition: all 0.15s; }
 .btn-logout:hover { border-color: rgba(255,255,255,0.35); color: rgba(255,255,255,0.8); }
- 
 .layout { display: flex; padding-top: var(--topbar); min-height: 100vh; }
- 
-.sidebar {
-  width: var(--sidebar);
-  min-height: calc(100vh - var(--topbar));
-  background: var(--white);
-  border-right: 1px solid var(--border);
-  position: fixed; top: var(--topbar); left: 0;
-  overflow-y: auto;
-  padding: 22px 0 40px;
-}
-.sidebar-section-label {
-  font-size: 10px; font-weight: 600;
-  letter-spacing: 0.12em; text-transform: uppercase;
-  color: var(--muted);
-  padding: 0 18px 10px;
-}
-.eje-btn {
-  width: 100%; display: flex; align-items: center; gap: 10px;
-  padding: 10px 18px; cursor: pointer;
-  border: none; background: none; text-align: left;
-  border-left: 2px solid transparent;
-  font-family: var(--font-body); font-size: 13px; color: var(--muted);
-  transition: background 0.12s, color 0.12s;
-}
+.sidebar { width: var(--sidebar); min-height: calc(100vh - var(--topbar)); background: var(--white); border-right: 1px solid var(--border); position: fixed; top: var(--topbar); left: 0; overflow-y: auto; padding: 22px 0 40px; }
+.sidebar-section-label { font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); padding: 0 18px 10px; }
+.eje-btn { width: 100%; display: flex; align-items: center; gap: 10px; padding: 10px 18px; cursor: pointer; border: none; background: none; text-align: left; border-left: 2px solid transparent; font-family: var(--font-body); font-size: 13px; color: var(--muted); transition: background 0.12s, color 0.12s; }
 .eje-btn:hover { background: #f8f7f4; color: var(--text); }
 .eje-btn.active { border-left-color: var(--orange); background: #fdf0ea; color: var(--navy); font-weight: 500; }
 .eje-btn.readonly { opacity: 0.55; }
@@ -178,48 +76,25 @@ body { font-family: var(--font-body); font-size: 14px; background: var(--cream);
 .badge-admin { background: var(--blue-lt); color: #1a4a9e; }
 .badge-ro    { background: #f0eeea; color: #aaa; }
 .sidebar-div { border: none; border-top: 1px solid var(--border); margin: 10px 0; }
- 
 .main { margin-left: var(--sidebar); flex: 1; padding: 28px 32px 60px; max-width: 820px; }
- 
-/* ── SELECTOR DE EJES ────────────────────────────────────── */
 .eje-selector-intro { margin-bottom: 24px; }
 .eje-selector-intro h1 { font-family: var(--font-head); font-size: 22px; font-weight: 600; color: var(--navy); margin-bottom: 6px; }
 .eje-selector-intro p { font-size: 13px; color: var(--muted); }
 .eje-selector-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
-.eje-selector-card {
-  background: var(--white); border: 1px solid var(--border);
-  border-radius: var(--radius-lg); box-shadow: var(--shadow);
-  padding: 20px; cursor: pointer;
-  transition: border-color 0.15s, box-shadow 0.15s;
-  display: flex; flex-direction: column; gap: 10px;
-}
+.eje-selector-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); box-shadow: var(--shadow); padding: 20px; cursor: pointer; transition: border-color 0.15s, box-shadow 0.15s; display: flex; flex-direction: column; gap: 10px; }
 .eje-selector-card:hover { border-color: var(--orange); box-shadow: 0 4px 12px rgba(233,114,76,0.12); }
 .eje-selector-name { font-family: var(--font-head); font-size: 15px; font-weight: 600; color: var(--navy); }
 .eje-selector-meta { font-size: 11px; color: var(--muted); line-height: 1.6; }
 .eje-selector-badge { align-self: flex-start; font-size: 9px; font-weight: 600; padding: 2px 8px; border-radius: 20px; letter-spacing: 0.04em; text-transform: uppercase; }
- 
-/* ── PÁGINA DE EJE ───────────────────────────────────────── */
-.page-back {
-  display: flex; align-items: center; gap: 6px;
-  font-size: 12px; color: var(--muted); cursor: pointer;
-  margin-bottom: 14px; background: none; border: none; padding: 0;
-  font-family: var(--font-body);
-}
+.page-back { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); cursor: pointer; margin-bottom: 14px; background: none; border: none; padding: 0; font-family: var(--font-body); }
 .page-back:hover { color: var(--navy); }
 .page-back svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 .page-header { margin-bottom: 26px; }
 .page-header-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 6px; }
 .page-title { font-family: var(--font-head); font-size: 22px; font-weight: 600; color: var(--navy); letter-spacing: -0.01em; }
-.page-readonly-banner {
-  display: flex; align-items: center; gap: 8px;
-  background: #fff9e6; border: 1px solid #f0d47a;
-  border-radius: var(--radius); padding: 8px 14px;
-  font-size: 12px; color: #7a5c00;
-}
+.page-readonly-banner { display: flex; align-items: center; gap: 8px; background: #fff9e6; border: 1px solid #f0d47a; border-radius: var(--radius); padding: 8px 14px; font-size: 12px; color: #7a5c00; }
 .page-meta { font-size: 12px; color: var(--muted); }
 .page-meta strong { color: var(--navy); }
- 
-/* ── CARDS ───────────────────────────────────────────────── */
 .card { background: var(--white); border-radius: var(--radius-lg); border: 1px solid var(--border); box-shadow: var(--shadow); margin-bottom: 18px; overflow: hidden; }
 .card-head { display: flex; align-items: center; gap: 12px; padding: 15px 20px; border-bottom: 1px solid #f0eeea; }
 .card-icon { width: 34px; height: 34px; border-radius: var(--radius); background: var(--cream); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
@@ -227,8 +102,6 @@ body { font-family: var(--font-body); font-size: 14px; background: var(--cream);
 .card-head-text .card-title { font-size: 14px; font-weight: 500; color: var(--navy); }
 .card-head-text .card-sub { font-size: 11px; color: var(--muted); margin-top: 1px; }
 .card-body { padding: 18px 20px; }
- 
-/* ── KEYWORDS ────────────────────────────────────────────── */
 .kw-field { min-height: 44px; display: flex; flex-wrap: wrap; gap: 6px; padding: 8px 10px; background: #faf9f7; border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 12px; }
 .kw-chip { display: inline-flex; align-items: center; gap: 5px; background: var(--blue-lt); color: #1a4a9e; font-size: 12px; padding: 3px 10px 3px 12px; border-radius: 20px; user-select: none; }
 .kw-chip button { background: none; border: none; cursor: pointer; color: #1a4a9e; opacity: 0.55; font-size: 16px; line-height: 1; padding: 0; display: flex; align-items: center; transition: opacity 0.1s; }
@@ -238,8 +111,6 @@ body { font-family: var(--font-body); font-size: 14px; background: var(--cream);
 .kw-input-row input:focus { outline: none; border-color: var(--blue); }
 .btn-add { height: 36px; padding: 0 16px; background: var(--blue); color: #fff; border: none; border-radius: var(--radius); font-family: var(--font-body); font-size: 13px; font-weight: 500; cursor: pointer; white-space: nowrap; transition: background 0.12s; }
 .btn-add:hover { background: #1a6ad4; }
- 
-/* ── ORGANISMOS ──────────────────────────────────────────── */
 .org-search { width: 100%; height: 36px; padding: 0 12px; border: 1px solid var(--border); border-radius: var(--radius); font-family: var(--font-body); font-size: 13px; background: var(--white); margin-bottom: 10px; }
 .org-search:focus { outline: none; border-color: var(--blue); }
 .org-list { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; max-height: 220px; overflow-y: auto; }
@@ -253,8 +124,6 @@ body { font-family: var(--font-body); font-size: 14px; background: var(--cream);
 .org-item.sel .org-cb svg { display: block; }
 .org-name { flex: 1; font-size: 13px; color: var(--text); }
 .org-count { font-size: 11px; color: var(--muted); margin-top: 7px; }
- 
-/* ── DESTINATARIOS ───────────────────────────────────────── */
 .dest-list { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
 .dest-row { display: flex; align-items: center; gap: 10px; padding: 9px 14px; background: #faf9f7; border: 1px solid var(--border); border-radius: var(--radius); }
 .dest-avatar { width: 30px; height: 30px; border-radius: 50%; background: var(--navy); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; flex-shrink: 0; font-family: var(--font-head); }
@@ -267,8 +136,6 @@ body { font-family: var(--font-body); font-size: 14px; background: var(--cream);
 .add-dest-row input:focus { outline: none; border-color: var(--blue); }
 .btn-ghost { height: 36px; padding: 0 16px; background: var(--cream); color: var(--navy); border: 1px solid var(--border); border-radius: var(--radius); font-family: var(--font-body); font-size: 13px; cursor: pointer; transition: background 0.12s; }
 .btn-ghost:hover { background: #edeae4; }
- 
-/* ── ACTION BAR ──────────────────────────────────────────── */
 .action-bar { display: flex; align-items: center; justify-content: space-between; padding: 13px 20px; border-top: 1px solid #f0eeea; background: #faf9f7; }
 .action-bar-meta { font-size: 11px; color: var(--muted); }
 .action-bar-meta strong { color: var(--navy); }
@@ -276,16 +143,12 @@ body { font-family: var(--font-body); font-size: 14px; background: var(--cream);
 .btn-save:hover { background: var(--orange-dk); }
 .btn-save:disabled { background: #ccc; cursor: not-allowed; }
 .btn-save svg { width: 16px; height: 16px; stroke: #fff; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
- 
-/* ── LOADING ─────────────────────────────────────────────── */
 #loading { position: fixed; inset: 0; z-index: 500; background: rgba(15,31,61,0.55); display: none; align-items: center; justify-content: center; }
 #loading.show { display: flex; }
 .loading-box { background: var(--white); border-radius: var(--radius-lg); padding: 32px 40px; text-align: center; }
 .spinner { width: 36px; height: 36px; margin: 0 auto 14px; border: 3px solid var(--blue-lt); border-top-color: var(--blue); border-radius: 50%; animation: spin 0.75s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
 .loading-text { font-size: 13px; color: var(--muted); }
- 
-/* ── MODAL ───────────────────────────────────────────────── */
 #modal-overlay { position: fixed; inset: 0; z-index: 400; background: rgba(15,31,61,0.5); display: none; align-items: center; justify-content: center; }
 #modal-overlay.show { display: flex; }
 .modal { background: var(--white); border-radius: var(--radius-lg); border: 1px solid var(--border); padding: 28px; width: 440px; max-width: 95vw; box-shadow: var(--shadow-md); }
@@ -304,55 +167,51 @@ body { font-family: var(--font-body); font-size: 14px; background: var(--cream);
 .btn-confirm { display: flex; align-items: center; gap: 7px; height: 36px; padding: 0 20px; background: var(--orange); color: #fff; border: none; border-radius: var(--radius); font-family: var(--font-body); font-size: 13px; font-weight: 500; cursor: pointer; }
 .btn-confirm:hover { background: var(--orange-dk); }
 .btn-confirm svg { width: 15px; height: 15px; stroke: #fff; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
- 
-/* ── TOAST ───────────────────────────────────────────────── */
 #toast { position: fixed; bottom: 28px; right: 28px; z-index: 600; padding: 12px 20px; border-radius: var(--radius); font-size: 13px; font-weight: 500; color: #fff; box-shadow: var(--shadow-md); transform: translateY(80px); opacity: 0; transition: transform 0.25s ease, opacity 0.25s ease; pointer-events: none; }
 #toast.show { transform: translateY(0); opacity: 1; }
 #toast.ok  { background: #1a7f4b; }
 #toast.err { background: var(--crimson); }
- 
 .error-banner { background: #fdeef2; border: 1px solid #f5c0ce; border-radius: var(--radius); padding: 12px 16px; font-size: 13px; color: var(--crimson); margin-bottom: 18px; }
+@media (max-width: 600px) {
+  .sidebar { display: none; }
+  .main { margin-left: 0; padding: 16px; }
+  .topbar-logo-sub { display: none; }
+  .topbar { padding: 0 16px; }
+  .login-box { padding: 36px 24px; }
+}
 </style>
 </head>
 <body>
  
-<!-- ══ LOGIN SCREEN ══════════════════════════════════════════ -->
+<!-- LOGIN -->
 <div id="login-screen">
   <div class="login-box">
     <div class="login-logo">NFQ · Licitaciones</div>
     <div class="login-title">Portal de configuración</div>
     <div class="login-sub">Accede con tu cuenta corporativa para gestionar los ejes funcionales y destinatarios.</div>
     <div class="login-error" id="login-error"></div>
-    <div id="g_id_onload"
-         data-client_id="792804876619-o9nddcn0nhqbg3mi6ehmb8j1e4ub7jrr.apps.googleusercontent.com"
-         data-callback="handleCredentialResponse"
-         data-auto_prompt="false">
+    <div class="login-loading" id="login-loading">
+      <div class="login-spinner"></div>
+      <span>Iniciando sesión...</span>
     </div>
-    <div class="g_id_signin"
-         data-type="standard"
-         data-size="large"
-         data-theme="outline"
-         data-text="signin_with"
-         data-shape="rectangular"
-         data-logo_alignment="left"
-         data-width="316">
-    </div>
+    <button class="btn-login-google" id="btn-google-login">
+      <svg width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+        <path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z" fill="#4285F4"/>
+        <path d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.258c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z" fill="#34A853"/>
+        <path d="M3.964 10.707A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.707V4.961H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.039l3.007-2.332z" fill="#FBBC05"/>
+        <path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.961L3.964 6.293C4.672 4.166 6.656 3.58 9 3.58z" fill="#EA4335"/>
+      </svg>
+      Iniciar sesión con Google
+    </button>
     <hr class="login-divider">
-    <div class="login-note">
-      Solo accesible con cuentas <strong>@nfq.es</strong>.<br>
-      Si crees que deberías tener acceso, contacta con el administrador.
-    </div>
+    <div class="login-note">Solo accesible con cuentas <strong>@nfq.es</strong>.<br>Si crees que deberías tener acceso, contacta con el administrador.</div>
   </div>
 </div>
  
-<!-- ══ APP SHELL ═════════════════════════════════════════════ -->
+<!-- APP -->
 <div id="app">
   <div class="topbar">
-    <div class="topbar-logo">
-      NFQ
-      <span class="topbar-logo-sep">|</span>
-      <span class="topbar-logo-sub">Portal de configuración · Licitaciones</span>
-    </div>
+    <div class="topbar-logo">NFQ <span class="topbar-logo-sep">|</span> <span class="topbar-logo-sub">Portal de configuración · Licitaciones</span></div>
     <div class="topbar-right">
       <div class="topbar-user">
         <div class="topbar-avatar" id="user-initials">--</div>
@@ -361,676 +220,421 @@ body { font-family: var(--font-body); font-size: 14px; background: var(--cream);
       <button class="btn-logout" onclick="logout()">Salir</button>
     </div>
   </div>
- 
   <div class="layout">
-    <nav class="sidebar">
-      <div class="sidebar-section-label">Ejes funcionales</div>
-      <div id="sidebar-ejes"></div>
-    </nav>
+    <nav class="sidebar"><div class="sidebar-section-label">Ejes funcionales</div><div id="sidebar-ejes"></div></nav>
     <main class="main" id="main-content"></main>
   </div>
 </div>
  
-<!-- ══ LOADING ═══════════════════════════════════════════════ -->
-<div id="loading">
-  <div class="loading-box">
-    <div class="spinner"></div>
-    <div class="loading-text" id="loading-text">Cargando...</div>
-  </div>
-</div>
+<div id="loading"><div class="loading-box"><div class="spinner"></div><div class="loading-text" id="loading-text">Cargando...</div></div></div>
  
-<!-- ══ MODAL ═════════════════════════════════════════════════ -->
 <div id="modal-overlay">
   <div class="modal">
-    <div class="modal-icon-wrap">
-      <svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-    </div>
+    <div class="modal-icon-wrap"><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
     <div class="modal-title" id="modal-title">Confirmar cambios</div>
     <div class="modal-desc">Los cambios se aplicarán al Google Sheet inmediatamente y tendrán efecto en el siguiente envío diario.</div>
     <div class="modal-changes" id="modal-changes"></div>
     <div class="modal-actions">
       <button class="btn-cancel" id="modal-cancel-btn">Cancelar</button>
-      <button class="btn-confirm" id="modal-confirm-btn">
-        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-        Confirmar y guardar
-      </button>
+      <button class="btn-confirm" id="modal-confirm-btn"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Confirmar y guardar</button>
     </div>
   </div>
 </div>
  
-<!-- ══ TOAST ═════════════════════════════════════════════════ -->
 <div id="toast"></div>
  
 <script>
-// ============================================================
-// CONFIGURACIÓN
-// ============================================================
-const CLIENT_ID    = "792804876619-o9nddcn0nhqbg3mi6ehmb8j1e4ub7jrr.apps.googleusercontent.com";
-const SHEET_ID     = "1YcW9-GKm7uL4GBYNdJr-NakDr9MQ3czcezHEfM6o6nw";
-const DOMINIO_NFQ  = "nfq.es";
-const SCOPES       = "https://www.googleapis.com/auth/spreadsheets https://www.googleapis.com/auth/drive.readonly";
+// ── CONFIGURACIÓN ─────────────────────────────────────────────
+var CLIENT_ID    = "792804876619-o9nddcn0nhqbg3mi6ehmb8j1e4ub7jrr.apps.googleusercontent.com";
+var SHEET_ID     = "1YcW9-GKm7uL4GBYNdJr-NakDr9MQ3czcezHEfM6o6nw";
+var DOMINIO_NFQ  = "nfq.es";
+var SCOPES       = "https://www.googleapis.com/auth/spreadsheets https://www.googleapis.com/auth/drive.readonly";
+var WEBAPP_URL   = "https://script.google.com/a/macros/nfq.es/s/AKfycbxO1AIZ1KfBRKKQ1u_kcjLL_--OTxPDhhoDqyabYc5RwhJKVnuqjF9rhvKqpt9FgVCU9A/exec";
+var REDIRECT_URI = "https://nfqlicitaciones.github.io/licitaciones-portal/";
  
-// Nombres de pestañas (deben coincidir con el Sheet)
-const SHEET_CONFIG   = "CONFIG_EJES";
-const SHEET_CATALOGO = "CATALOGO_ORGANISMOS";
-const SHEET_AUDIT    = "AUDIT_LOG";
- 
-// Columnas CONFIG_EJES (0-indexed para arrays, 1-indexed para la API)
-const COL_NOMBRE        = 0; // A
-const COL_KEYWORDS      = 1; // B
-const COL_DESTINATARIOS = 2; // C
-// D (idx 3) = primer envío, ignorada
-const COL_ORGANISMOS    = 4; // E
-const COL_RESPONSABLES  = 5; // F
- 
-// ============================================================
-// ESTADO
-// ============================================================
-var accessToken  = null;
-var userEmail    = null;
-var state = {
-  ejes:         [],
-  catalogo:     [],
-  ejeActivo:    null,
-  kwEdit:       [],
-  destEdit:     [],
-  orgEdit:      [],
-  orgFiltro:    "",
-  ultimoCambio: null,
-};
+var COL_NOMBRE=0, COL_KEYWORDS=1, COL_DESTINATARIOS=2, COL_ORGANISMOS=4, COL_RESPONSABLES=5;
+var SHEET_CONFIG="CONFIG_EJES", SHEET_CATALOGO="CATALOGO_ORGANISMOS", SHEET_AUDIT="AUDIT_LOG";
 var COLORES = ["#217BEE","#E9724C","#D13B5F","#1a9e6a","#b04aa0","#d48a00"];
  
-// ============================================================
-// GOOGLE IDENTITY SERVICES — LOGIN
-// ============================================================
+// ── ESTADO ────────────────────────────────────────────────────
+var accessToken = null;
+var userEmail   = null;
+var state = { ejes:[], catalogo:[], ejeActivo:null, kwEdit:[], destEdit:[], orgEdit:[], orgFiltro:"", ultimoCambio:null };
  
-/**
- * Callback de Google Identity Services.
- * Recibe un JWT credential (ID token) tras el login con el botón.
- * Lo decodifica para verificar dominio y obtener el email.
- * Luego lanza el flujo OAuth2 para obtener el access token.
- */
-function handleCredentialResponse(response) {
-  try {
-    var payload = decodeJWT(response.credential);
-    var email   = payload.email || "";
+// ── ARRANQUE ──────────────────────────────────────────────────
+window.addEventListener("load", function() {
+  document.getElementById("modal-cancel-btn").addEventListener("click", cerrarModal);
+  document.getElementById("modal-confirm-btn").addEventListener("click", confirmarGuardar);
+  document.getElementById("btn-google-login").addEventListener("click", iniciarLogin);
  
-    if (!email.endsWith("@" + DOMINIO_NFQ)) {
-      mostrarErrorLogin("Solo se permiten cuentas @" + DOMINIO_NFQ + ". Has iniciado sesión con: " + email);
+  // Caso 1: venimos de redirect OAuth (token en el hash)
+  var hash = window.location.hash;
+  if (hash && hash.includes("access_token")) {
+    var params = new URLSearchParams(hash.substring(1));
+    var token  = params.get("access_token");
+    if (token) {
+      history.replaceState(null, "", window.location.pathname + window.location.search);
+      mostrarLoadingLogin();
+      verificarTokenYArrancar(token);
       return;
     }
+  }
  
-    userEmail = email;
-    solicitarAccessToken();
-  } catch(e) {
-    mostrarErrorLogin("Error al procesar el inicio de sesión: " + e.message);
+  // Caso 2: sesión guardada en sessionStorage
+  var savedToken = sessionStorage.getItem("nfq_token");
+  var savedEmail = sessionStorage.getItem("nfq_email");
+  if (savedToken && savedEmail) {
+    accessToken = savedToken;
+    userEmail   = savedEmail;
+    mostrarLoadingLogin();
+    arrancarApp();
+    return;
+  }
+ 
+  // Caso 3: mostrar login normal
+});
+ 
+function esMobil() {
+  return /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+}
+ 
+function iniciarLogin() {
+  mostrarLoadingLogin();
+  if (esMobil()) {
+    iniciarRedirectFlow();
+  } else {
+    iniciarPopupFlow();
   }
 }
  
-/**
- * Lanza el popup OAuth2 con el TokenClient de Google Identity Services.
- * Pide los scopes necesarios para Sheets y Drive.
- * prompt: "" → solo pide consentimiento la primera vez.
- */
-function solicitarAccessToken() {
-  var tokenClient = google.accounts.oauth2.initTokenClient({
-    client_id: CLIENT_ID,
-    scope:     SCOPES,
-    hint:      userEmail,
-    callback:  function(tokenResponse) {
-      if (tokenResponse.error) {
-        mostrarErrorLogin("Error al obtener permisos: " + tokenResponse.error);
+function mostrarLoadingLogin() {
+  document.getElementById("login-loading").classList.add("show");
+  document.getElementById("btn-google-login").style.display = "none";
+}
+ 
+// ── POPUP FLOW (desktop) ──────────────────────────────────────
+function iniciarPopupFlow() {
+  cargarGIS(function() {
+    var tokenClient = google.accounts.oauth2.initTokenClient({
+      client_id: CLIENT_ID,
+      scope:     SCOPES,
+      callback:  function(tokenResponse) {
+        if (tokenResponse.error) {
+          mostrarErrorLoginConReset("Error al obtener permisos: " + tokenResponse.error);
+          return;
+        }
+        verificarTokenYArrancar(tokenResponse.access_token);
+      },
+    });
+    // prompt:"" → no fuerza consentimiento si ya fue aceptado antes
+    tokenClient.requestAccessToken({ prompt: "" });
+  });
+}
+ 
+// ── REDIRECT FLOW (móvil) ─────────────────────────────────────
+function iniciarRedirectFlow() {
+  var params = new URLSearchParams({
+    client_id:     CLIENT_ID,
+    redirect_uri:  REDIRECT_URI,
+    response_type: "token",
+    scope:         SCOPES,
+    prompt:        "select_account",
+  });
+  window.location.href = "https://accounts.google.com/o/oauth2/v2/auth?" + params.toString();
+}
+ 
+// ── VERIFICACIÓN TOKEN ────────────────────────────────────────
+function verificarTokenYArrancar(token) {
+  fetch("https://www.googleapis.com/oauth2/v3/tokeninfo?access_token=" + token)
+    .then(function(r) { return r.json(); })
+    .then(function(info) {
+      var email = info.email || "";
+      if (!email.endsWith("@" + DOMINIO_NFQ)) {
+        mostrarErrorLoginConReset("Solo cuentas @" + DOMINIO_NFQ + ". Cuenta detectada: " + email);
         return;
       }
-      accessToken = tokenResponse.access_token;
-      // Guardar email en sessionStorage para móvil
-      try { sessionStorage.setItem("nfq_user", userEmail); } catch(e) {}
-      iniciarApp();
-    },
-  });
-  // prompt: "" = no fuerza pantalla de consentimiento si ya fue aceptado
-  tokenClient.requestAccessToken({ prompt: "" });
-}
- 
-function mostrarErrorLogin(msg) {
-  var el = document.getElementById("login-error");
-  el.textContent = msg;
-  el.style.display = "block";
-}
- 
-function logout() {
-  google.accounts.oauth2.revoke(accessToken, function() {});
-  accessToken = null;
-  userEmail   = null;
-  state       = { ejes: [], catalogo: [], ejeActivo: null, kwEdit: [], destEdit: [], orgEdit: [], orgFiltro: "", ultimoCambio: null };
-  document.getElementById("app").style.display          = "none";
-  document.getElementById("login-screen").style.display = "flex";
-  document.getElementById("login-error").style.display  = "none";
-}
- 
-// ============================================================
-// INICIO DE APP
-// ============================================================
- 
-function iniciarApp() {
-  document.getElementById("login-screen").style.display = "none";
-  document.getElementById("app").style.display          = "block";
-  document.getElementById("user-email").textContent     = userEmail;
-  document.getElementById("user-initials").textContent  = inicialesEmail(userEmail);
- 
-  document.getElementById("modal-cancel-btn").addEventListener("click", cerrarModal);
-  document.getElementById("modal-confirm-btn").addEventListener("click", confirmarGuardar);
- 
-  mostrarLoading("Cargando configuración...");
-  Promise.all([cargarConfigEjes(), cargarCatalogo()])
-    .then(function(results) {
-      state.ejes     = results[0];
-      state.catalogo = results[1];
-      ocultarLoading();
-      renderSidebar();
- 
-      // Leer parámetro ?eje= de la URL
-      var params  = new URLSearchParams(window.location.search);
-      var ejeParam = (params.get("eje") || "").trim().toUpperCase();
-      var ejeEncontrado = ejeParam
-        ? state.ejes.find(function(e) { return e.nombre === ejeParam; }) || null
-        : null;
- 
-      if (ejeEncontrado) seleccionarEje(ejeEncontrado.nombre);
-      else renderSelector();
+      accessToken = token;
+      userEmail   = email;
+      try { sessionStorage.setItem("nfq_token", token); sessionStorage.setItem("nfq_email", email); } catch(e) {}
+      document.getElementById("login-screen").style.display = "none";
+      document.getElementById("app").style.display = "block";
+      arrancarApp();
     })
     .catch(function(err) {
-      ocultarLoading();
-      document.getElementById("main-content").innerHTML =
-        '<div class="error-banner">Error al cargar los datos: ' + esc(err.message) + '</div>';
+      mostrarErrorLoginConReset("Error verificando sesión: " + err.message);
     });
 }
  
-// ============================================================
-// SHEETS API — LECTURA
-// ============================================================
+function cargarGIS(callback) {
+  if (window.google && window.google.accounts) { callback(); return; }
+  var s = document.createElement("script");
+  s.src = "https://accounts.google.com/gsi/client";
+  s.onload = callback;
+  document.head.appendChild(s);
+}
  
-/**
- * Llama a la Sheets API REST con el access token.
- */
+function mostrarErrorLoginConReset(msg) {
+  var el = document.getElementById("login-error");
+  el.textContent = msg; el.style.display = "block";
+  document.getElementById("login-loading").classList.remove("show");
+  document.getElementById("btn-google-login").style.display = "flex";
+}
+ 
+function logout() {
+  sessionStorage.removeItem("nfq_token"); sessionStorage.removeItem("nfq_email");
+  accessToken = null; userEmail = null;
+  state = { ejes:[], catalogo:[], ejeActivo:null, kwEdit:[], destEdit:[], orgEdit:[], orgFiltro:"", ultimoCambio:null };
+  document.getElementById("app").style.display = "none";
+  document.getElementById("login-screen").style.display = "flex";
+  document.getElementById("login-error").style.display = "none";
+  document.getElementById("login-loading").classList.remove("show");
+  document.getElementById("btn-google-login").style.display = "flex";
+}
+ 
+// ── ARRANQUE DE APP ───────────────────────────────────────────
+function arrancarApp() {
+  document.getElementById("user-email").textContent    = userEmail;
+  document.getElementById("user-initials").textContent = inicialesEmail(userEmail);
+  mostrarLoading("Cargando configuración...");
+ 
+  Promise.all([cargarConfigEjes(), cargarCatalogo()])
+    .then(function(results) {
+      state.ejes = results[0]; state.catalogo = results[1];
+      ocultarLoading(); renderSidebar();
+      var params = new URLSearchParams(window.location.search);
+      var ejeParam = (params.get("eje") || "").trim().toUpperCase();
+      var ejeEncontrado = ejeParam ? state.ejes.find(function(e) { return e.nombre === ejeParam; }) : null;
+      if (ejeEncontrado) seleccionarEje(ejeEncontrado.nombre); else renderSelector();
+    })
+    .catch(function(err) {
+      ocultarLoading();
+      if (err.message && err.message.includes("401")) {
+        sessionStorage.removeItem("nfq_token"); sessionStorage.removeItem("nfq_email");
+        logout(); mostrarErrorLoginConReset("Tu sesión ha expirado. Inicia sesión de nuevo."); return;
+      }
+      document.getElementById("main-content").innerHTML = '<div class="error-banner">Error al cargar los datos: ' + esc(err.message) + '</div>';
+    });
+}
+ 
+// ── SHEETS API ────────────────────────────────────────────────
 function sheetsGet(range) {
-  var url = "https://sheets.googleapis.com/v4/spreadsheets/" + SHEET_ID
-          + "/values/" + encodeURIComponent(range) + "?valueRenderOption=FORMATTED_VALUE";
-  return fetch(url, {
+  return fetch("https://sheets.googleapis.com/v4/spreadsheets/" + SHEET_ID + "/values/" + encodeURIComponent(range) + "?valueRenderOption=FORMATTED_VALUE", {
     headers: { "Authorization": "Bearer " + accessToken }
   }).then(function(r) {
-    if (!r.ok) return r.json().then(function(e) { throw new Error(e.error.message || "Error Sheets API"); });
+    if (r.status === 401) throw new Error("401");
+    if (!r.ok) return r.json().then(function(e) { throw new Error(e.error ? e.error.message : "Error API"); });
     return r.json();
   });
 }
  
-/**
- * Lee CONFIG_EJES y construye el array de ejes con esAdmin para el usuario actual.
- */
+function sheetsUpdate(range, values) {
+  return fetch("https://sheets.googleapis.com/v4/spreadsheets/" + SHEET_ID + "/values/" + encodeURIComponent(range) + "?valueInputOption=RAW", {
+    method: "PUT",
+    headers: { "Authorization": "Bearer " + accessToken, "Content-Type": "application/json" },
+    body: JSON.stringify({ range: range, majorDimension: "ROWS", values: values })
+  }).then(function(r) {
+    if (!r.ok) return r.json().then(function(e) { throw new Error(e.error ? e.error.message : "Error escritura"); });
+    return r.json();
+  });
+}
+ 
 function cargarConfigEjes() {
   return sheetsGet(SHEET_CONFIG + "!A2:F500").then(function(data) {
-    var rows = data.values || [];
-    return rows.map(function(fila) {
+    return (data.values || []).map(function(fila) {
       var nombre = String(fila[COL_NOMBRE] || "").trim().toUpperCase();
       if (!nombre) return null;
- 
-      var keywords = String(fila[COL_KEYWORDS] || "")
-        .split(",").map(function(k) { return k.trim(); }).filter(Boolean);
- 
-      var destinatarios = String(fila[COL_DESTINATARIOS] || "")
-        .split(",").map(function(d) { return d.trim(); }).filter(function(d) { return d.includes("@"); });
- 
-      var organismos = String(fila[COL_ORGANISMOS] || "")
-        .split("|").map(function(o) { return o.trim(); }).filter(Boolean);
- 
-      var responsables = String(fila[COL_RESPONSABLES] || "")
-        .split(",").map(function(r) { return r.trim(); }).filter(function(r) { return r.includes("@"); });
- 
-      var esAdmin = responsables.some(function(r) {
-        return r.toLowerCase().trim() === userEmail.toLowerCase().trim();
-      });
- 
-      return { nombre: nombre, keywords: keywords, destinatarios: destinatarios, organismos: organismos, responsables: responsables, esAdmin: esAdmin };
+      var keywords      = String(fila[COL_KEYWORDS]      || "").split(",").map(function(k){return k.trim();}).filter(Boolean);
+      var destinatarios = String(fila[COL_DESTINATARIOS] || "").split(",").map(function(d){return d.trim();}).filter(function(d){return d.includes("@");});
+      var organismos    = String(fila[COL_ORGANISMOS]    || "").split("|").map(function(o){return o.trim();}).filter(Boolean);
+      var responsables  = String(fila[COL_RESPONSABLES]  || "").split(",").map(function(r){return r.trim();}).filter(function(r){return r.includes("@");});
+      var esAdmin = responsables.some(function(r){return r.toLowerCase().trim()===userEmail.toLowerCase().trim();});
+      return {nombre:nombre, keywords:keywords, destinatarios:destinatarios, organismos:organismos, responsables:responsables, esAdmin:esAdmin};
     }).filter(Boolean);
   });
 }
  
-/**
- * Lee CATALOGO_ORGANISMOS y devuelve array de nombres.
- */
 function cargarCatalogo() {
   return sheetsGet(SHEET_CATALOGO + "!A2:A2000").then(function(data) {
-    var rows = data.values || [];
-    return rows.map(function(r) { return String(r[0] || "").trim(); }).filter(Boolean).sort(function(a,b) { return a.localeCompare(b, "es"); });
-  }).catch(function() { return []; }); // catálogo opcional
+    return (data.values||[]).map(function(r){return String(r[0]||"").trim();}).filter(Boolean).sort(function(a,b){return a.localeCompare(b,"es");});
+  }).catch(function(){return [];});
 }
  
-// ============================================================
-// SHEETS API — ESCRITURA
-// ============================================================
- 
-/**
- * Escribe un valor en una celda específica.
- */
-function sheetsUpdate(range, values) {
-  var url = "https://sheets.googleapis.com/v4/spreadsheets/" + SHEET_ID
-          + "/values/" + encodeURIComponent(range) + "?valueInputOption=RAW";
-  return fetch(url, {
-    method: "PUT",
-    headers: {
-      "Authorization": "Bearer " + accessToken,
-      "Content-Type":  "application/json",
-    },
-    body: JSON.stringify({ range: range, majorDimension: "ROWS", values: values })
-  }).then(function(r) {
-    if (!r.ok) return r.json().then(function(e) { throw new Error(e.error.message || "Error escritura Sheets"); });
-    return r.json();
-  });
-}
- 
-/**
- * Añade una fila al AUDIT_LOG.
- */
 function escribirAuditLog(eje, tipo, anterior, nuevo) {
-  var timestamp = new Date().toLocaleString("es-ES", { timeZone: "Europe/Madrid" });
-  return sheetsGet(SHEET_AUDIT + "!A1").then(function() {
-    // Append al final del AUDIT_LOG
-    var url = "https://sheets.googleapis.com/v4/spreadsheets/" + SHEET_ID
-            + "/values/" + encodeURIComponent(SHEET_AUDIT + "!A:F") + ":append?valueInputOption=RAW&insertDataOption=INSERT_ROWS";
-    return fetch(url, {
-      method: "POST",
-      headers: {
-        "Authorization": "Bearer " + accessToken,
-        "Content-Type":  "application/json",
-      },
-      body: JSON.stringify({ values: [[timestamp, userEmail, eje, tipo, anterior, nuevo]] })
-    });
-  }).catch(function() {}); // no bloquear el guardado si el audit log falla
+  var ts = new Date().toLocaleString("es-ES",{timeZone:"Europe/Madrid"});
+  return fetch("https://sheets.googleapis.com/v4/spreadsheets/" + SHEET_ID + "/values/" + encodeURIComponent(SHEET_AUDIT+"!A:F") + ":append?valueInputOption=RAW&insertDataOption=INSERT_ROWS", {
+    method:"POST", headers:{"Authorization":"Bearer "+accessToken,"Content-Type":"application/json"},
+    body: JSON.stringify({values:[[ts,userEmail,eje,tipo,anterior,nuevo]]})
+  }).catch(function(){});
 }
  
-/**
- * Busca la fila de un eje en CONFIG_EJES y devuelve el número de fila (1-indexed).
- * Fila 1 = cabecera, datos desde fila 2.
- */
 function encontrarFilaEje(ejeNombre) {
-  return sheetsGet(SHEET_CONFIG + "!A2:A500").then(function(data) {
-    var rows = data.values || [];
-    for (var i = 0; i < rows.length; i++) {
-      if (String(rows[i][0] || "").trim().toUpperCase() === ejeNombre) {
-        return i + 2; // +2 porque la fila 1 es cabecera y los arrays son 0-indexed
-      }
-    }
-    throw new Error("Eje \"" + ejeNombre + "\" no encontrado en el Sheet.");
+  return sheetsGet(SHEET_CONFIG+"!A2:A500").then(function(data) {
+    var rows = data.values||[];
+    for (var i=0;i<rows.length;i++) { if (String(rows[i][0]||"").trim().toUpperCase()===ejeNombre) return i+2; }
+    throw new Error("Eje no encontrado.");
   });
 }
  
-/**
- * Guarda los cambios de un eje en CONFIG_EJES.
- * Escribe columnas B (keywords), C (destinatarios), E (organismos).
- * Registra cambios en AUDIT_LOG.
- */
 function guardarEje(ejeNombre, kwNuevos, destNuevos, orgNuevos) {
-  var ejeActual = state.ejes.find(function(e) { return e.nombre === ejeNombre; });
-  if (!ejeActual) return Promise.reject(new Error("Eje no encontrado en estado local."));
- 
-  // Verificar permisos localmente también
-  if (!ejeActual.esAdmin) return Promise.reject(new Error("No tienes permisos para editar este eje."));
- 
+  var eje = state.ejes.find(function(e){return e.nombre===ejeNombre;});
+  if (!eje) return Promise.reject(new Error("Eje no encontrado."));
+  if (!eje.esAdmin) return Promise.reject(new Error("Sin permisos."));
   return encontrarFilaEje(ejeNombre).then(function(fila) {
-    // Escribir B, C, E en la misma fila
-    var rangeB = SHEET_CONFIG + "!B" + fila;
-    var rangeC = SHEET_CONFIG + "!C" + fila;
-    var rangeE = SHEET_CONFIG + "!E" + fila;
- 
     return Promise.all([
-      sheetsUpdate(rangeB, [[kwNuevos.join(", ")]]),
-      sheetsUpdate(rangeC, [[destNuevos.join(", ")]]),
-      sheetsUpdate(rangeE, [[orgNuevos.join(" | ")]]),
+      sheetsUpdate(SHEET_CONFIG+"!B"+fila, [[kwNuevos.join(", ")]]),
+      sheetsUpdate(SHEET_CONFIG+"!C"+fila, [[destNuevos.join(", ")]]),
+      sheetsUpdate(SHEET_CONFIG+"!E"+fila, [[orgNuevos.join(" | ")]]),
     ]);
   }).then(function() {
-    // Registrar cambios en audit log (en paralelo, no bloqueante)
-    var audits = [];
-    if (kwNuevos.join(",") !== ejeActual.keywords.join(",")) {
-      audits.push(escribirAuditLog(ejeNombre, "keywords", ejeActual.keywords.join(", "), kwNuevos.join(", ")));
-    }
-    if (destNuevos.join(",") !== ejeActual.destinatarios.join(",")) {
-      audits.push(escribirAuditLog(ejeNombre, "destinatarios", ejeActual.destinatarios.join(", "), destNuevos.join(", ")));
-    }
-    if (orgNuevos.join("|") !== ejeActual.organismos.join("|")) {
-      audits.push(escribirAuditLog(ejeNombre, "organismos", ejeActual.organismos.join(" | "), orgNuevos.join(" | ")));
-    }
+    var audits=[];
+    if (kwNuevos.join(",")!==eje.keywords.join(","))       audits.push(escribirAuditLog(ejeNombre,"keywords",eje.keywords.join(", "),kwNuevos.join(", ")));
+    if (destNuevos.join(",")!==eje.destinatarios.join(",")) audits.push(escribirAuditLog(ejeNombre,"destinatarios",eje.destinatarios.join(", "),destNuevos.join(", ")));
+    if (orgNuevos.join("|")!==eje.organismos.join("|"))    audits.push(escribirAuditLog(ejeNombre,"organismos",eje.organismos.join(" | "),orgNuevos.join(" | ")));
     return Promise.all(audits);
   });
 }
  
-// ============================================================
-// RENDER — SIDEBAR
-// ============================================================
- 
-function renderSidebar() {
-  var admins  = state.ejes.filter(function(e) { return e.esAdmin; });
-  var soloLec = state.ejes.filter(function(e) { return !e.esAdmin; });
-  var cont    = document.getElementById("sidebar-ejes");
-  cont.innerHTML = "";
- 
-  function mkBtn(eje, idx) {
-    var btn = document.createElement("button");
-    btn.className   = "eje-btn" + (eje.esAdmin ? "" : " readonly");
-    btn.dataset.eje = eje.nombre;
-    btn.innerHTML   =
-      '<span class="eje-dot" style="background:' + COLORES[idx % COLORES.length] + ';"></span>' +
-      '<span class="eje-name">' + esc(eje.nombre) + '</span>' +
-      '<span class="eje-badge ' + (eje.esAdmin ? "badge-admin" : "badge-ro") + '">' + (eje.esAdmin ? "admin" : "lectura") + '</span>';
-    btn.addEventListener("click", function() { seleccionarEje(eje.nombre); });
-    cont.appendChild(btn);
-  }
- 
-  admins.forEach(function(e, i) { mkBtn(e, i); });
-  if (admins.length > 0 && soloLec.length > 0) {
-    var hr = document.createElement("hr"); hr.className = "sidebar-div"; cont.appendChild(hr);
-  }
-  soloLec.forEach(function(e, i) { mkBtn(e, admins.length + i); });
+// ── BIENVENIDA ────────────────────────────────────────────────
+// Usamos el access token como Bearer para autenticar la llamada al Web App.
+// Apps Script verifica el token contra tokeninfo antes de ejecutar.
+function dispararBienvenida(ejeNombre, emailsNuevos) {
+  if (!emailsNuevos || emailsNuevos.length === 0) return;
+  fetch(WEBAPP_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "Authorization": "Bearer " + accessToken },
+    body: JSON.stringify({ accion: "enviarbienvenida", eje: ejeNombre, emails: emailsNuevos }),
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(res) {
+    if (res.ok) showToast("Bienvenida enviada a " + emailsNuevos.length + " destinatario(s)", "ok");
+    else console.warn("Bienvenida:", res.error);
+  })
+  .catch(function(err) { console.warn("Bienvenida:", err.message); });
 }
  
-// ============================================================
-// RENDER — SELECTOR
-// ============================================================
+// ── RENDER ────────────────────────────────────────────────────
+function renderSidebar() {
+  var admins=state.ejes.filter(function(e){return e.esAdmin;}), soloLec=state.ejes.filter(function(e){return !e.esAdmin;});
+  var cont=document.getElementById("sidebar-ejes"); cont.innerHTML="";
+  function mkBtn(eje,idx) {
+    var btn=document.createElement("button");
+    btn.className="eje-btn"+(eje.esAdmin?"":" readonly"); btn.dataset.eje=eje.nombre;
+    btn.innerHTML='<span class="eje-dot" style="background:'+COLORES[idx%COLORES.length]+';"></span><span class="eje-name">'+esc(eje.nombre)+'</span><span class="eje-badge '+(eje.esAdmin?"badge-admin":"badge-ro")+'">'+(eje.esAdmin?"admin":"lectura")+'</span>';
+    btn.addEventListener("click",function(){seleccionarEje(eje.nombre);}); cont.appendChild(btn);
+  }
+  admins.forEach(function(e,i){mkBtn(e,i);});
+  if (admins.length>0&&soloLec.length>0){var hr=document.createElement("hr");hr.className="sidebar-div";cont.appendChild(hr);}
+  soloLec.forEach(function(e,i){mkBtn(e,admins.length+i);});
+}
  
 function renderSelector() {
-  state.ejeActivo = null;
-  document.querySelectorAll(".eje-btn").forEach(function(b) { b.classList.remove("active"); });
- 
-  var tarjetas = state.ejes.map(function(eje, idx) {
-    var kw = eje.keywords.slice(0, 3).join(", ") + (eje.keywords.length > 3 ? "... (+" + (eje.keywords.length - 3) + ")" : "");
-    var dc = eje.destinatarios.length;
-    return '<div class="eje-selector-card" onclick="seleccionarEje(\'' + esc(eje.nombre) + '\')">' +
-      '<div style="display:flex;align-items:center;gap:8px;">' +
-        '<span style="width:10px;height:10px;border-radius:50%;background:' + COLORES[idx % COLORES.length] + ';flex-shrink:0;display:inline-block;"></span>' +
-        '<span class="eje-selector-name">' + esc(eje.nombre) + '</span>' +
-      '</div>' +
-      '<div class="eje-selector-meta">' + (kw ? '<div>Keywords: ' + esc(kw) + '</div>' : '') + '<div>' + dc + ' destinatario' + (dc !== 1 ? 's' : '') + '</div></div>' +
-      '<span class="eje-selector-badge ' + (eje.esAdmin ? 'badge-admin' : 'badge-ro') + '">' + (eje.esAdmin ? 'admin' : 'solo lectura') + '</span>' +
-      '</div>';
+  state.ejeActivo=null;
+  document.querySelectorAll(".eje-btn").forEach(function(b){b.classList.remove("active");});
+  var tarjetas=state.ejes.map(function(eje,idx){
+    var kw=eje.keywords.slice(0,3).join(", ")+(eje.keywords.length>3?"... (+"+(eje.keywords.length-3)+")":"");
+    var dc=eje.destinatarios.length;
+    return '<div class="eje-selector-card" onclick="seleccionarEje(\''+esc(eje.nombre)+'\')"><div style="display:flex;align-items:center;gap:8px;"><span style="width:10px;height:10px;border-radius:50%;background:'+COLORES[idx%COLORES.length]+';flex-shrink:0;display:inline-block;"></span><span class="eje-selector-name">'+esc(eje.nombre)+'</span></div><div class="eje-selector-meta">'+(kw?'<div>Keywords: '+esc(kw)+'</div>':'')+'<div>'+dc+' destinatario'+(dc!==1?'s':'')+'</div></div><span class="eje-selector-badge '+(eje.esAdmin?'badge-admin':'badge-ro')+'">'+(eje.esAdmin?'admin':'solo lectura')+'</span></div>';
   }).join("");
- 
-  document.getElementById("main-content").innerHTML =
-    '<div class="eje-selector-intro"><h1>Selecciona un eje funcional</h1><p>Gestiona las palabras clave, organismos y destinatarios de cada eje.</p></div>' +
-    '<div class="eje-selector-grid">' + tarjetas + '</div>';
+  document.getElementById("main-content").innerHTML='<div class="eje-selector-intro"><h1>Selecciona un eje funcional</h1><p>Gestiona las palabras clave, organismos y destinatarios de cada eje.</p></div><div class="eje-selector-grid">'+tarjetas+'</div>';
 }
  
-// ============================================================
-// RENDER — EJE
-// ============================================================
- 
 function seleccionarEje(nombre) {
-  var eje = state.ejes.find(function(e) { return e.nombre === nombre; });
-  if (!eje) return;
-  state.ejeActivo = nombre;
-  state.kwEdit    = eje.keywords.slice();
-  state.destEdit  = eje.destinatarios.slice();
-  state.orgEdit   = eje.organismos.slice();
-  state.orgFiltro = "";
-  document.querySelectorAll(".eje-btn").forEach(function(b) { b.classList.toggle("active", b.dataset.eje === nombre); });
+  var eje=state.ejes.find(function(e){return e.nombre===nombre;}); if (!eje) return;
+  state.ejeActivo=nombre; state.kwEdit=eje.keywords.slice(); state.destEdit=eje.destinatarios.slice(); state.orgEdit=eje.organismos.slice(); state.orgFiltro="";
+  document.querySelectorAll(".eje-btn").forEach(function(b){b.classList.toggle("active",b.dataset.eje===nombre);});
   renderMain(eje);
 }
  
-function volverAlSelector() { renderSelector(); }
+function volverAlSelector(){renderSelector();}
  
 function renderMain(eje) {
-  var uch = state.ultimoCambio
-    ? 'Último cambio guardado: <strong>' + esc(state.ultimoCambio) + '</strong>'
-    : 'Sin cambios guardados en esta sesión';
-  var rb = !eje.esAdmin
-    ? '<div class="page-readonly-banner"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Solo lectura</div>'
-    : '';
-  var ak = eje.esAdmin
-    ? '<div class="kw-input-row"><input type="text" id="kw-input" placeholder="Nueva palabra clave..." maxlength="100"/><button class="btn-add" id="kw-add-btn">Añadir</button></div>'
-    : '';
-  var ad = eje.esAdmin
-    ? '<div class="add-dest-row"><input type="email" id="dest-input" placeholder="correo@nfq.es" maxlength="100"/><button class="btn-ghost" id="dest-add-btn">+ Añadir destinatario</button></div>'
-    : '';
-  var as = eje.esAdmin
-    ? '<button class="btn-save" id="save-btn"><svg viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>Guardar cambios</button>'
-    : '';
- 
-  document.getElementById("main-content").innerHTML =
-    '<button class="page-back" onclick="volverAlSelector()"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>Todos los ejes</button>' +
-    '<div class="page-header">' +
-      '<div class="page-header-top"><div class="page-title">' + esc(eje.nombre) + '</div>' + rb + '</div>' +
-      '<div class="page-meta">' + uch + '</div>' +
-    '</div>' +
-    '<div class="card"><div class="card-head"><div class="card-icon"><svg viewBox="0 0 24 24"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg></div><div class="card-head-text"><div class="card-title">Palabras clave</div><div class="card-sub">Se buscan en el nombre del organismo licitante (lógica OR)</div></div></div><div class="card-body"><div class="kw-field" id="kw-field"></div>' + ak + '</div></div>' +
-    '<div class="card"><div class="card-head"><div class="card-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><div class="card-head-text"><div class="card-title">Organismos seleccionados</div><div class="card-sub">Matching exacto con el catálogo (lógica OR con keywords)</div></div></div><div class="card-body"><div class="kw-field" id="org-selected-chips" style="margin-bottom:12px;"></div><input class="org-search" id="org-search" type="text" placeholder="Buscar organismo en el catálogo..."/><div class="org-list" id="org-list"></div><div class="org-count" id="org-count"></div></div></div>' +
-    '<div class="card"><div class="card-head"><div class="card-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div><div class="card-head-text"><div class="card-title">Destinatarios</div><div class="card-sub">Recibirán el comunicado diario de este eje</div></div></div><div class="card-body"><div class="dest-list" id="dest-list"></div>' + ad + '</div><div class="action-bar"><div class="action-bar-meta" id="action-meta">' + uch + '</div>' + as + '</div></div>';
- 
-  renderKeywords();
-  renderOrgList();
-  renderDests();
- 
+  var uch=state.ultimoCambio?'Último cambio guardado: <strong>'+esc(state.ultimoCambio)+'</strong>':'Sin cambios guardados en esta sesión';
+  var rb=!eje.esAdmin?'<div class="page-readonly-banner"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Solo lectura</div>':'';
+  var ak=eje.esAdmin?'<div class="kw-input-row"><input type="text" id="kw-input" placeholder="Nueva palabra clave..." maxlength="100"/><button class="btn-add" id="kw-add-btn">Añadir</button></div>':'';
+  var ad=eje.esAdmin?'<div class="add-dest-row"><input type="email" id="dest-input" placeholder="correo@nfq.es" maxlength="100"/><button class="btn-ghost" id="dest-add-btn">+ Añadir destinatario</button></div>':'';
+  var as=eje.esAdmin?'<button class="btn-save" id="save-btn"><svg viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>Guardar cambios</button>':'';
+  document.getElementById("main-content").innerHTML=
+    '<button class="page-back" onclick="volverAlSelector()"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>Todos los ejes</button>'+
+    '<div class="page-header"><div class="page-header-top"><div class="page-title">'+esc(eje.nombre)+'</div>'+rb+'</div><div class="page-meta">'+uch+'</div></div>'+
+    '<div class="card"><div class="card-head"><div class="card-icon"><svg viewBox="0 0 24 24"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg></div><div class="card-head-text"><div class="card-title">Palabras clave</div><div class="card-sub">Se buscan en el nombre del organismo licitante (lógica OR)</div></div></div><div class="card-body"><div class="kw-field" id="kw-field"></div>'+ak+'</div></div>'+
+    '<div class="card"><div class="card-head"><div class="card-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><div class="card-head-text"><div class="card-title">Organismos seleccionados</div><div class="card-sub">Matching exacto con el catálogo (lógica OR con keywords)</div></div></div><div class="card-body"><div class="kw-field" id="org-selected-chips" style="margin-bottom:12px;"></div><input class="org-search" id="org-search" type="text" placeholder="Buscar organismo en el catálogo..."/><div class="org-list" id="org-list"></div><div class="org-count" id="org-count"></div></div></div>'+
+    '<div class="card"><div class="card-head"><div class="card-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div><div class="card-head-text"><div class="card-title">Destinatarios</div><div class="card-sub">Recibirán el comunicado diario de este eje</div></div></div><div class="card-body"><div class="dest-list" id="dest-list"></div>'+ad+'</div><div class="action-bar"><div class="action-bar-meta" id="action-meta">'+uch+'</div>'+as+'</div></div>';
+  renderKeywords(); renderOrgList(); renderDests();
   if (eje.esAdmin) {
-    document.getElementById("kw-add-btn").addEventListener("click", addKeyword);
-    document.getElementById("kw-input").addEventListener("keydown", function(e) { if (e.key === "Enter") addKeyword(); });
-    document.getElementById("dest-add-btn").addEventListener("click", addDest);
-    document.getElementById("dest-input").addEventListener("keydown", function(e) { if (e.key === "Enter") addDest(); });
-    document.getElementById("save-btn").addEventListener("click", abrirModal);
-  } else {
-    var orgSearch = document.getElementById("org-search");
-    orgSearch.disabled = true;
-    orgSearch.style.opacity = "0.5";
-  }
-  document.getElementById("org-search").addEventListener("input", function(e) {
-    state.orgFiltro = e.target.value.toLowerCase();
-    renderOrgList();
-  });
+    document.getElementById("kw-add-btn").addEventListener("click",addKeyword);
+    document.getElementById("kw-input").addEventListener("keydown",function(e){if(e.key==="Enter")addKeyword();});
+    document.getElementById("dest-add-btn").addEventListener("click",addDest);
+    document.getElementById("dest-input").addEventListener("keydown",function(e){if(e.key==="Enter")addDest();});
+    document.getElementById("save-btn").addEventListener("click",abrirModal);
+  } else { var os=document.getElementById("org-search"); os.disabled=true; os.style.opacity="0.5"; }
+  document.getElementById("org-search").addEventListener("input",function(e){state.orgFiltro=e.target.value.toLowerCase();renderOrgList();});
 }
  
-// ── Keywords ─────────────────────────────────────────────────
 function renderKeywords() {
-  var f = document.getElementById("kw-field"); if (!f) return;
-  var eje = state.ejes.find(function(e) { return e.nombre === state.ejeActivo; });
-  f.innerHTML = state.kwEdit.map(function(kw, i) {
-    return '<span class="kw-chip">' + esc(kw) + (eje && eje.esAdmin ? '<button onclick="removeKeyword(' + i + ')" title="Eliminar">&times;</button>' : '') + '</span>';
-  }).join("") || '<span style="font-size:12px;color:var(--muted);padding:4px;">Sin palabras clave definidas</span>';
+  var f=document.getElementById("kw-field"); if(!f)return;
+  var eje=state.ejes.find(function(e){return e.nombre===state.ejeActivo;});
+  f.innerHTML=state.kwEdit.map(function(kw,i){return '<span class="kw-chip">'+esc(kw)+(eje&&eje.esAdmin?'<button onclick="removeKeyword('+i+')" title="Eliminar">&times;</button>':'')+'</span>';}).join("")||'<span style="font-size:12px;color:var(--muted);padding:4px;">Sin palabras clave definidas</span>';
 }
-function addKeyword() {
-  var input = document.getElementById("kw-input"), val = input.value.trim();
-  if (!val) return;
-  if (state.kwEdit.indexOf(val) !== -1) { showToast("Ya existe", "err"); return; }
-  state.kwEdit.push(val); input.value = ""; renderKeywords();
-}
-function removeKeyword(idx) { state.kwEdit.splice(idx, 1); renderKeywords(); }
+function addKeyword(){var input=document.getElementById("kw-input"),val=input.value.trim();if(!val)return;if(state.kwEdit.indexOf(val)!==-1){showToast("Ya existe","err");return;}state.kwEdit.push(val);input.value="";renderKeywords();}
+function removeKeyword(idx){state.kwEdit.splice(idx,1);renderKeywords();}
  
-// ── Organismos ───────────────────────────────────────────────
 function renderOrgList() {
-  var list  = document.getElementById("org-list");
-  var count = document.getElementById("org-count");
-  var chips = document.getElementById("org-selected-chips");
-  if (!list) return;
- 
-  var eje     = state.ejes.find(function(e) { return e.nombre === state.ejeActivo; });
-  var esAdmin = eje && eje.esAdmin;
-  var vis     = state.catalogo.filter(function(o) {
-    return !state.orgFiltro || o.toLowerCase().indexOf(state.orgFiltro) !== -1;
-  });
- 
-  if (chips) {
-    chips.innerHTML = state.orgEdit.length === 0
-      ? '<span style="font-size:12px;color:var(--muted);padding:4px;">Sin organismos seleccionados</span>'
-      : state.orgEdit.map(function(org, i) {
-          return '<span class="kw-chip" style="background:#e8f5ee;color:#1a6b3c;">' + esc(org) +
-            (esAdmin ? '<button onclick="deseleccionarOrg(' + i + ')" title="Deseleccionar">&times;</button>' : '') + '</span>';
-        }).join("");
-  }
- 
-  list.innerHTML = vis.slice(0, 80).map(function(org) {
-    var sel = state.orgEdit.indexOf(org) !== -1;
-    return '<div class="org-item' + (sel ? ' sel' : '') + '" data-org="' + org.replace(/"/g, '&quot;') + '">' +
-      '<div class="org-cb"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>' +
-      '<span class="org-name">' + esc(org) + '</span></div>';
-  }).join("") || '<div style="padding:16px;text-align:center;font-size:12px;color:var(--muted);">Sin resultados</div>';
- 
-  if (esAdmin) {
-    list.querySelectorAll(".org-item").forEach(function(el) {
-      el.addEventListener("click", function() { toggleOrg(el.dataset.org); });
-    });
-  }
- 
-  if (count) count.textContent = state.orgEdit.length + ' seleccionados · ' + state.catalogo.length + ' en catálogo' + (state.orgFiltro ? ' · ' + vis.length + ' visibles' : '');
+  var list=document.getElementById("org-list"),count=document.getElementById("org-count"),chips=document.getElementById("org-selected-chips");
+  if(!list)return;
+  var eje=state.ejes.find(function(e){return e.nombre===state.ejeActivo;}),esAdmin=eje&&eje.esAdmin;
+  var vis=state.catalogo.filter(function(o){return !state.orgFiltro||o.toLowerCase().indexOf(state.orgFiltro)!==-1;});
+  if(chips){chips.innerHTML=state.orgEdit.length===0?'<span style="font-size:12px;color:var(--muted);padding:4px;">Sin organismos seleccionados</span>':state.orgEdit.map(function(org,i){return '<span class="kw-chip" style="background:#e8f5ee;color:#1a6b3c;">'+esc(org)+(esAdmin?'<button onclick="deseleccionarOrg('+i+')" title="Deseleccionar">&times;</button>':'')+'</span>';}).join("");}
+  list.innerHTML=vis.slice(0,80).map(function(org){var sel=state.orgEdit.indexOf(org)!==-1;return '<div class="org-item'+(sel?' sel':'')+'" data-org="'+org.replace(/"/g,'&quot;')+'"><div class="org-cb"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><span class="org-name">'+esc(org)+'</span></div>';}).join("")||'<div style="padding:16px;text-align:center;font-size:12px;color:var(--muted);">Sin resultados</div>';
+  if(esAdmin)list.querySelectorAll(".org-item").forEach(function(el){el.addEventListener("click",function(){toggleOrg(el.dataset.org);});});
+  if(count)count.textContent=state.orgEdit.length+' seleccionados · '+state.catalogo.length+' en catálogo'+(state.orgFiltro?' · '+vis.length+' visibles':'');
 }
-function deseleccionarOrg(idx) { state.orgEdit.splice(idx, 1); renderOrgList(); }
-function toggleOrg(n) { var i = state.orgEdit.indexOf(n); if (i === -1) state.orgEdit.push(n); else state.orgEdit.splice(i, 1); renderOrgList(); }
+function deseleccionarOrg(idx){state.orgEdit.splice(idx,1);renderOrgList();}
+function toggleOrg(n){var i=state.orgEdit.indexOf(n);if(i===-1)state.orgEdit.push(n);else state.orgEdit.splice(i,1);renderOrgList();}
  
-// ── Destinatarios ────────────────────────────────────────────
 function renderDests() {
-  var list = document.getElementById("dest-list"); if (!list) return;
-  var eje     = state.ejes.find(function(e) { return e.nombre === state.ejeActivo; });
-  var esAdmin = eje && eje.esAdmin;
-  list.innerHTML = state.destEdit.map(function(email, i) {
-    return '<div class="dest-row">' +
-      '<div class="dest-avatar">' + inicialesEmail(email) + '</div>' +
-      '<span class="dest-email">' + esc(email) + '</span>' +
-      (esAdmin ? '<button class="dest-rm" onclick="removeDest(' + i + ')" title="Eliminar"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>' : '') +
-      '</div>';
-  }).join("") || '<div style="font-size:12px;color:var(--muted);padding:4px 0;">Sin destinatarios definidos</div>';
+  var list=document.getElementById("dest-list");if(!list)return;
+  var eje=state.ejes.find(function(e){return e.nombre===state.ejeActivo;}),esAdmin=eje&&eje.esAdmin;
+  list.innerHTML=state.destEdit.map(function(email,i){return '<div class="dest-row"><div class="dest-avatar">'+inicialesEmail(email)+'</div><span class="dest-email">'+esc(email)+'</span>'+(esAdmin?'<button class="dest-rm" onclick="removeDest('+i+')" title="Eliminar"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>':'')+'</div>';}).join("")||'<div style="font-size:12px;color:var(--muted);padding:4px 0;">Sin destinatarios definidos</div>';
 }
-function addDest() {
-  var input = document.getElementById("dest-input"), val = input.value.trim().toLowerCase();
-  if (!val) return;
-  if (!val.includes("@")) { showToast("Email inválido", "err"); return; }
-  if (!val.endsWith("@" + DOMINIO_NFQ)) { showToast("Solo cuentas @" + DOMINIO_NFQ, "err"); return; }
-  if (state.destEdit.indexOf(val) !== -1) { showToast("Ya está en la lista", "err"); return; }
-  state.destEdit.push(val); input.value = ""; renderDests();
-}
-function removeDest(idx) { state.destEdit.splice(idx, 1); renderDests(); }
+function addDest(){var input=document.getElementById("dest-input"),val=input.value.trim().toLowerCase();if(!val)return;if(!val.includes("@")){showToast("Email inválido","err");return;}if(!val.endsWith("@"+DOMINIO_NFQ)){showToast("Solo cuentas @"+DOMINIO_NFQ,"err");return;}if(state.destEdit.indexOf(val)!==-1){showToast("Ya está en la lista","err");return;}state.destEdit.push(val);input.value="";renderDests();}
+function removeDest(idx){state.destEdit.splice(idx,1);renderDests();}
  
-// ============================================================
-// MODAL DE CONFIRMACIÓN
-// ============================================================
- 
+// ── MODAL ─────────────────────────────────────────────────────
 function abrirModal() {
-  var eje = state.ejes.find(function(e) { return e.nombre === state.ejeActivo; }); if (!eje) return;
-  document.getElementById("modal-title").textContent = "Confirmar cambios en " + eje.nombre;
- 
-  function fila(label, antes, despues) {
-    var c = antes !== despues;
-    return '<div class="modal-change-row">' +
-      '<span class="modal-change-label">' + label + '</span>' +
-      '<span class="modal-change-val' + (c ? '' : ' nochange') + '">' +
-        (c ? '<strong style="color:var(--crimson);">Antes:</strong> ' + esc(antes) + '<br><strong style="color:#1a7f4b;">Ahora:</strong> ' + esc(despues) : 'Sin cambios') +
-      '</span></div>';
-  }
- 
-  document.getElementById("modal-changes").innerHTML =
-    fila("Palabras clave",  eje.keywords.join(", ")      || "(vacío)", state.kwEdit.join(", ")   || "(vacío)") +
-    fila("Organismos",      eje.organismos.join(", ")    || "(vacío)", state.orgEdit.join(", ")  || "(vacío)") +
-    fila("Destinatarios",   eje.destinatarios.join(", ") || "(vacío)", state.destEdit.join(", ") || "(vacío)");
- 
+  var eje=state.ejes.find(function(e){return e.nombre===state.ejeActivo;});if(!eje)return;
+  document.getElementById("modal-title").textContent="Confirmar cambios en "+eje.nombre;
+  function fila(label,antes,despues){var c=antes!==despues;return '<div class="modal-change-row"><span class="modal-change-label">'+label+'</span><span class="modal-change-val'+(c?'':' nochange')+'">'+(c?'<strong style="color:var(--crimson);">Antes:</strong> '+esc(antes)+'<br><strong style="color:#1a7f4b;">Ahora:</strong> '+esc(despues):'Sin cambios')+'</span></div>';}
+  document.getElementById("modal-changes").innerHTML=fila("Palabras clave",eje.keywords.join(", ")||"(vacío)",state.kwEdit.join(", ")||"(vacío)")+fila("Organismos",eje.organismos.join(", ")||"(vacío)",state.orgEdit.join(", ")||"(vacío)")+fila("Destinatarios",eje.destinatarios.join(", ")||"(vacío)",state.destEdit.join(", ")||"(vacío)");
   document.getElementById("modal-overlay").classList.add("show");
 }
- 
-function cerrarModal() {
-  document.getElementById("modal-overlay").classList.remove("show");
-}
+function cerrarModal(){document.getElementById("modal-overlay").classList.remove("show");}
  
 function confirmarGuardar() {
   cerrarModal();
- 
-  // Detectar emails nuevos ANTES de guardar
-  var eje = state.ejes.find(function(e) { return e.nombre === state.ejeActivo; });
-  var destAnteriores = eje ? eje.destinatarios.map(function(e) { return e.toLowerCase().trim(); }) : [];
-  var emailsNuevos   = state.destEdit.filter(function(e) {
-    return !destAnteriores.includes(e.toLowerCase().trim());
-  });
- 
+  var eje=state.ejes.find(function(e){return e.nombre===state.ejeActivo;});
+  var destAnteriores=eje?eje.destinatarios.map(function(e){return e.toLowerCase().trim();}):[];
+  var emailsNuevos=state.destEdit.filter(function(e){return !destAnteriores.includes(e.toLowerCase().trim());});
   mostrarLoading("Guardando cambios...");
- 
-  guardarEje(state.ejeActivo, state.kwEdit, state.destEdit, state.orgEdit)
-    .then(function() {
-      // Actualizar estado local
-      var ejeActualizado = state.ejes.find(function(e) { return e.nombre === state.ejeActivo; });
-      if (ejeActualizado) {
-        ejeActualizado.keywords      = state.kwEdit.slice();
-        ejeActualizado.destinatarios = state.destEdit.slice();
-        ejeActualizado.organismos    = state.orgEdit.slice();
-      }
-      var ahora = new Date().toLocaleTimeString("es-ES", { hour: "2-digit", minute: "2-digit" });
-      state.ultimoCambio = "hoy, " + ahora + "h";
-      var meta = document.getElementById("action-meta");
-      if (meta) meta.innerHTML = 'Último cambio guardado: <strong>' + state.ultimoCambio + '</strong>';
-      ocultarLoading();
-      showToast("Cambios guardados correctamente", "ok");
- 
-      // Disparar bienvenida si hay emails nuevos
-      if (emailsNuevos.length > 0) {
-        dispararBienvenida(state.ejeActivo, emailsNuevos);
-      }
+  guardarEje(state.ejeActivo,state.kwEdit,state.destEdit,state.orgEdit)
+    .then(function(){
+      var ejeAct=state.ejes.find(function(e){return e.nombre===state.ejeActivo;});
+      if(ejeAct){ejeAct.keywords=state.kwEdit.slice();ejeAct.destinatarios=state.destEdit.slice();ejeAct.organismos=state.orgEdit.slice();}
+      var ahora=new Date().toLocaleTimeString("es-ES",{hour:"2-digit",minute:"2-digit"});
+      state.ultimoCambio="hoy, "+ahora+"h";
+      var meta=document.getElementById("action-meta");
+      if(meta)meta.innerHTML='Último cambio guardado: <strong>'+state.ultimoCambio+'</strong>';
+      ocultarLoading(); showToast("Cambios guardados correctamente","ok");
+      if(emailsNuevos.length>0)dispararBienvenida(state.ejeActivo,emailsNuevos);
     })
-    .catch(function(err) {
-      ocultarLoading();
-      showToast("Error: " + err.message, "err");
-    });
+    .catch(function(err){ocultarLoading();showToast("Error: "+err.message,"err");});
 }
  
-function dispararBienvenida(ejeNombre, emailsNuevos) {
-  // El Web App de Apps Script no acepta POST cross-origin (CORS).
-  // Usamos GET con parámetros — no hay preflight y llega correctamente.
-  // Usamos mode: no-cors porque no necesitamos leer la respuesta.
-  var WEBAPP_URL = "https://script.google.com/a/macros/nfq.es/s/AKfycbxO1AIZ1KfBRKKQ1u_kcjLL_--OTxPDhhoDqyabYc5RwhJKVnuqjF9rhvKqpt9FgVCU9A/exec";
- 
-  var params = new URLSearchParams({
-    accion: "enviarbienvenida",
-    eje:    ejeNombre,
-    emails: emailsNuevos.join(","),
-  });
- 
-  fetch(WEBAPP_URL + "?" + params.toString(), {
-    method: "GET",
-    mode:   "no-cors",
-  })
-  .then(function() {
-    showToast("Bienvenida en proceso para " + emailsNuevos.length + " destinatario(s)", "ok");
-  })
-  .catch(function(err) {
-    console.warn("Error disparando bienvenida:", err.message);
-  });
-}
- 
-// ============================================================
-// UTILIDADES UI
-// ============================================================
- 
-function mostrarLoading(txt) {
-  document.getElementById("loading-text").textContent = txt || "Procesando...";
-  document.getElementById("loading").classList.add("show");
-}
-function ocultarLoading() {
-  document.getElementById("loading").classList.remove("show");
-}
-function showToast(msg, tipo) {
-  var t = document.getElementById("toast");
-  t.textContent = msg;
-  t.className   = "show " + tipo;
-  clearTimeout(t._timer);
-  t._timer = setTimeout(function() { t.className = ""; }, 3500);
-}
-function esc(s) {
-  return String(s || "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
-}
-function inicialesEmail(e) {
-  var p = String(e || "").split("@")[0].split(".");
-  return p.length >= 2 ? (p[0][0] + p[1][0]).toUpperCase() : String(e || "?")[0].toUpperCase();
-}
- 
-// ============================================================
-// DECODE JWT (sin librería — solo para leer el payload del ID token)
-// ============================================================
-function decodeJWT(token) {
-  var parts = token.split(".");
-  if (parts.length !== 3) throw new Error("JWT inválido");
-  var payload = parts[1].replace(/-/g, "+").replace(/_/g, "/");
-  while (payload.length % 4) payload += "=";
-  return JSON.parse(atob(payload));
-}
+// ── UTILIDADES ────────────────────────────────────────────────
+function mostrarLoading(txt){document.getElementById("loading-text").textContent=txt||"Procesando...";document.getElementById("loading").classList.add("show");}
+function ocultarLoading(){document.getElementById("loading").classList.remove("show");}
+function showToast(msg,tipo){var t=document.getElementById("toast");t.textContent=msg;t.className="show "+tipo;clearTimeout(t._timer);t._timer=setTimeout(function(){t.className="";},3500);}
+function esc(s){return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
+function inicialesEmail(e){var p=String(e||"").split("@")[0].split(".");return p.length>=2?(p[0][0]+p[1][0]).toUpperCase():String(e||"?")[0].toUpperCase();}
 </script>
 </body>
 </html>
