@@ -479,12 +479,26 @@ function guardarEje(ejeNombre, kwNuevos, destNuevos, orgNuevos) {
   var eje = state.ejes.find(function(e){return e.nombre===ejeNombre;});
   if (!eje) return Promise.reject(new Error("Eje no encontrado."));
   if (!eje.esAdmin) return Promise.reject(new Error("Sin permisos."));
+
+  // Detectar emails nuevos antes de guardar
+  var destAnteriores = eje.destinatarios.map(function(e){return e.toLowerCase().trim();});
+  var emailsNuevos   = destNuevos.filter(function(e){
+    return !destAnteriores.includes(e.toLowerCase().trim());
+  });
+
   return encontrarFilaEje(ejeNombre).then(function(fila) {
-    return Promise.all([
+    var writes = [
       sheetsUpdate(SHEET_CONFIG+"!B"+fila, [[kwNuevos.join(", ")]]),
       sheetsUpdate(SHEET_CONFIG+"!C"+fila, [[destNuevos.join(", ")]]),
       sheetsUpdate(SHEET_CONFIG+"!E"+fila, [[orgNuevos.join(" | ")]]),
-    ]);
+    ];
+
+    // Si hay emails nuevos, escribirlos en columna D para disparar la bienvenida
+    if (emailsNuevos.length > 0) {
+      writes.push(sheetsUpdate(SHEET_CONFIG+"!D"+fila, [[emailsNuevos.join(", ")]]));
+    }
+
+    return Promise.all(writes);
   }).then(function() {
     var audits=[];
     if (kwNuevos.join(",")!==eje.keywords.join(","))       audits.push(escribirAuditLog(ejeNombre,"keywords",eje.keywords.join(", "),kwNuevos.join(", ")));
@@ -611,11 +625,8 @@ function cerrarModal(){document.getElementById("modal-overlay").classList.remove
  
 function confirmarGuardar() {
   cerrarModal();
-  var eje=state.ejes.find(function(e){return e.nombre===state.ejeActivo;});
-  var destAnteriores=eje?eje.destinatarios.map(function(e){return e.toLowerCase().trim();}):[];
-  var emailsNuevos=state.destEdit.filter(function(e){return !destAnteriores.includes(e.toLowerCase().trim());});
   mostrarLoading("Guardando cambios...");
-  guardarEje(state.ejeActivo,state.kwEdit,state.destEdit,state.orgEdit)
+  guardarEje(state.ejeActivo, state.kwEdit, state.destEdit, state.orgEdit)
     .then(function(){
       var ejeAct=state.ejes.find(function(e){return e.nombre===state.ejeActivo;});
       if(ejeAct){ejeAct.keywords=state.kwEdit.slice();ejeAct.destinatarios=state.destEdit.slice();ejeAct.organismos=state.orgEdit.slice();}
@@ -623,8 +634,8 @@ function confirmarGuardar() {
       state.ultimoCambio="hoy, "+ahora+"h";
       var meta=document.getElementById("action-meta");
       if(meta)meta.innerHTML='Último cambio guardado: <strong>'+state.ultimoCambio+'</strong>';
-      ocultarLoading(); showToast("Cambios guardados correctamente","ok");
-      if(emailsNuevos.length>0)dispararBienvenida(state.ejeActivo,emailsNuevos);
+      ocultarLoading();
+      showToast("Cambios guardados correctamente","ok");
     })
     .catch(function(err){ocultarLoading();showToast("Error: "+err.message,"err");});
 }
