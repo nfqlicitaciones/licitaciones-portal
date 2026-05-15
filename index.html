@@ -32,9 +32,9 @@
   --shadow:    0 1px 3px rgba(0,0,0,0.07), 0 1px 2px rgba(0,0,0,0.04);
   --shadow-md: 0 4px 16px rgba(0,0,0,0.10);
 }
-
+ 
 body { font-family: var(--font-body); font-size: 14px; background: var(--cream); color: var(--text); min-height: 100vh; }
-
+ 
 /* ── LOGIN ───────────────────────────────────────────────── */
 #login-screen {
   min-height: 100vh;
@@ -99,10 +99,10 @@ body { font-family: var(--font-body); font-size: 14px; background: var(--cream);
   margin-bottom: 16px;
   display: none;
 }
-
+ 
 /* ── APP SHELL ───────────────────────────────────────────── */
 #app { display: none; }
-
+ 
 .topbar {
   position: fixed; top: 0; left: 0; right: 0; z-index: 200;
   height: var(--topbar);
@@ -143,9 +143,9 @@ body { font-family: var(--font-body); font-size: 14px; background: var(--cream);
   transition: all 0.15s;
 }
 .btn-logout:hover { border-color: rgba(255,255,255,0.35); color: rgba(255,255,255,0.8); }
-
+ 
 .layout { display: flex; padding-top: var(--topbar); min-height: 100vh; }
-
+ 
 .sidebar {
   width: var(--sidebar);
   min-height: calc(100vh - var(--topbar));
@@ -178,9 +178,9 @@ body { font-family: var(--font-body); font-size: 14px; background: var(--cream);
 .badge-admin { background: var(--blue-lt); color: #1a4a9e; }
 .badge-ro    { background: #f0eeea; color: #aaa; }
 .sidebar-div { border: none; border-top: 1px solid var(--border); margin: 10px 0; }
-
+ 
 .main { margin-left: var(--sidebar); flex: 1; padding: 28px 32px 60px; max-width: 820px; }
-
+ 
 /* ── SELECTOR DE EJES ────────────────────────────────────── */
 .eje-selector-intro { margin-bottom: 24px; }
 .eje-selector-intro h1 { font-family: var(--font-head); font-size: 22px; font-weight: 600; color: var(--navy); margin-bottom: 6px; }
@@ -197,7 +197,7 @@ body { font-family: var(--font-body); font-size: 14px; background: var(--cream);
 .eje-selector-name { font-family: var(--font-head); font-size: 15px; font-weight: 600; color: var(--navy); }
 .eje-selector-meta { font-size: 11px; color: var(--muted); line-height: 1.6; }
 .eje-selector-badge { align-self: flex-start; font-size: 9px; font-weight: 600; padding: 2px 8px; border-radius: 20px; letter-spacing: 0.04em; text-transform: uppercase; }
-
+ 
 /* ── PÁGINA DE EJE ───────────────────────────────────────── */
 .page-back {
   display: flex; align-items: center; gap: 6px;
@@ -218,7 +218,7 @@ body { font-family: var(--font-body); font-size: 14px; background: var(--cream);
 }
 .page-meta { font-size: 12px; color: var(--muted); }
 .page-meta strong { color: var(--navy); }
-
+ 
 /* ── CARDS ───────────────────────────────────────────────── */
 .card { background: var(--white); border-radius: var(--radius-lg); border: 1px solid var(--border); box-shadow: var(--shadow); margin-bottom: 18px; overflow: hidden; }
 .card-head { display: flex; align-items: center; gap: 12px; padding: 15px 20px; border-bottom: 1px solid #f0eeea; }
@@ -227,7 +227,7 @@ body { font-family: var(--font-body); font-size: 14px; background: var(--cream);
 .card-head-text .card-title { font-size: 14px; font-weight: 500; color: var(--navy); }
 .card-head-text .card-sub { font-size: 11px; color: var(--muted); margin-top: 1px; }
 .card-body { padding: 18px 20px; }
-
+ 
 /* ── KEYWORDS ────────────────────────────────────────────── */
 .kw-field { min-height: 44px; display: flex; flex-wrap: wrap; gap: 6px; padding: 8px 10px; background: #faf9f7; border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 12px; }
 .kw-chip { display: inline-flex; align-items: center; gap: 5px; background: var(--blue-lt); color: #1a4a9e; font-size: 12px; padding: 3px 10px 3px 12px; border-radius: 20px; user-select: none; }
@@ -238,7 +238,7 @@ body { font-family: var(--font-body); font-size: 14px; background: var(--cream);
 .kw-input-row input:focus { outline: none; border-color: var(--blue); }
 .btn-add { height: 36px; padding: 0 16px; background: var(--blue); color: #fff; border: none; border-radius: var(--radius); font-family: var(--font-body); font-size: 13px; font-weight: 500; cursor: pointer; white-space: nowrap; transition: background 0.12s; }
 .btn-add:hover { background: #1a6ad4; }
-
+ 
 /* ── ORGANISMOS ──────────────────────────────────────────── */
 .org-search { width: 100%; height: 36px; padding: 0 12px; border: 1px solid var(--border); border-radius: var(--radius); font-family: var(--font-body); font-size: 13px; background: var(--white); margin-bottom: 10px; }
 .org-search:focus { outline: none; border-color: var(--blue); }
@@ -253,7 +253,7 @@ body { font-family: var(--font-body); font-size: 14px; background: var(--cream);
 .org-item.sel .org-cb svg { display: block; }
 .org-name { flex: 1; font-size: 13px; color: var(--text); }
 .org-count { font-size: 11px; color: var(--muted); margin-top: 7px; }
-
+ 
 /* ── DESTINATARIOS ───────────────────────────────────────── */
 .dest-list { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
 .dest-row { display: flex; align-items: center; gap: 10px; padding: 9px 14px; background: #faf9f7; border: 1px solid var(--border); border-radius: var(--radius); }
@@ -267,7 +267,7 @@ body { font-family: var(--font-body); font-size: 14px; background: var(--cream);
 .add-dest-row input:focus { outline: none; border-color: var(--blue); }
 .btn-ghost { height: 36px; padding: 0 16px; background: var(--cream); color: var(--navy); border: 1px solid var(--border); border-radius: var(--radius); font-family: var(--font-body); font-size: 13px; cursor: pointer; transition: background 0.12s; }
 .btn-ghost:hover { background: #edeae4; }
-
+ 
 /* ── ACTION BAR ──────────────────────────────────────────── */
 .action-bar { display: flex; align-items: center; justify-content: space-between; padding: 13px 20px; border-top: 1px solid #f0eeea; background: #faf9f7; }
 .action-bar-meta { font-size: 11px; color: var(--muted); }
@@ -276,7 +276,7 @@ body { font-family: var(--font-body); font-size: 14px; background: var(--cream);
 .btn-save:hover { background: var(--orange-dk); }
 .btn-save:disabled { background: #ccc; cursor: not-allowed; }
 .btn-save svg { width: 16px; height: 16px; stroke: #fff; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-
+ 
 /* ── LOADING ─────────────────────────────────────────────── */
 #loading { position: fixed; inset: 0; z-index: 500; background: rgba(15,31,61,0.55); display: none; align-items: center; justify-content: center; }
 #loading.show { display: flex; }
@@ -284,7 +284,7 @@ body { font-family: var(--font-body); font-size: 14px; background: var(--cream);
 .spinner { width: 36px; height: 36px; margin: 0 auto 14px; border: 3px solid var(--blue-lt); border-top-color: var(--blue); border-radius: 50%; animation: spin 0.75s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
 .loading-text { font-size: 13px; color: var(--muted); }
-
+ 
 /* ── MODAL ───────────────────────────────────────────────── */
 #modal-overlay { position: fixed; inset: 0; z-index: 400; background: rgba(15,31,61,0.5); display: none; align-items: center; justify-content: center; }
 #modal-overlay.show { display: flex; }
@@ -304,18 +304,18 @@ body { font-family: var(--font-body); font-size: 14px; background: var(--cream);
 .btn-confirm { display: flex; align-items: center; gap: 7px; height: 36px; padding: 0 20px; background: var(--orange); color: #fff; border: none; border-radius: var(--radius); font-family: var(--font-body); font-size: 13px; font-weight: 500; cursor: pointer; }
 .btn-confirm:hover { background: var(--orange-dk); }
 .btn-confirm svg { width: 15px; height: 15px; stroke: #fff; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
-
+ 
 /* ── TOAST ───────────────────────────────────────────────── */
 #toast { position: fixed; bottom: 28px; right: 28px; z-index: 600; padding: 12px 20px; border-radius: var(--radius); font-size: 13px; font-weight: 500; color: #fff; box-shadow: var(--shadow-md); transform: translateY(80px); opacity: 0; transition: transform 0.25s ease, opacity 0.25s ease; pointer-events: none; }
 #toast.show { transform: translateY(0); opacity: 1; }
 #toast.ok  { background: #1a7f4b; }
 #toast.err { background: var(--crimson); }
-
+ 
 .error-banner { background: #fdeef2; border: 1px solid #f5c0ce; border-radius: var(--radius); padding: 12px 16px; font-size: 13px; color: var(--crimson); margin-bottom: 18px; }
 </style>
 </head>
 <body>
-
+ 
 <!-- ══ LOGIN SCREEN ══════════════════════════════════════════ -->
 <div id="login-screen">
   <div class="login-box">
@@ -344,7 +344,7 @@ body { font-family: var(--font-body); font-size: 14px; background: var(--cream);
     </div>
   </div>
 </div>
-
+ 
 <!-- ══ APP SHELL ═════════════════════════════════════════════ -->
 <div id="app">
   <div class="topbar">
@@ -361,7 +361,7 @@ body { font-family: var(--font-body); font-size: 14px; background: var(--cream);
       <button class="btn-logout" onclick="logout()">Salir</button>
     </div>
   </div>
-
+ 
   <div class="layout">
     <nav class="sidebar">
       <div class="sidebar-section-label">Ejes funcionales</div>
@@ -370,7 +370,7 @@ body { font-family: var(--font-body); font-size: 14px; background: var(--cream);
     <main class="main" id="main-content"></main>
   </div>
 </div>
-
+ 
 <!-- ══ LOADING ═══════════════════════════════════════════════ -->
 <div id="loading">
   <div class="loading-box">
@@ -378,7 +378,7 @@ body { font-family: var(--font-body); font-size: 14px; background: var(--cream);
     <div class="loading-text" id="loading-text">Cargando...</div>
   </div>
 </div>
-
+ 
 <!-- ══ MODAL ═════════════════════════════════════════════════ -->
 <div id="modal-overlay">
   <div class="modal">
@@ -397,10 +397,10 @@ body { font-family: var(--font-body); font-size: 14px; background: var(--cream);
     </div>
   </div>
 </div>
-
+ 
 <!-- ══ TOAST ═════════════════════════════════════════════════ -->
 <div id="toast"></div>
-
+ 
 <script>
 // ============================================================
 // CONFIGURACIÓN
@@ -409,12 +409,12 @@ const CLIENT_ID    = "792804876619-o9nddcn0nhqbg3mi6ehmb8j1e4ub7jrr.apps.googleu
 const SHEET_ID     = "1YcW9-GKm7uL4GBYNdJr-NakDr9MQ3czcezHEfM6o6nw";
 const DOMINIO_NFQ  = "nfq.es";
 const SCOPES       = "https://www.googleapis.com/auth/spreadsheets https://www.googleapis.com/auth/drive.readonly";
-
+ 
 // Nombres de pestañas (deben coincidir con el Sheet)
 const SHEET_CONFIG   = "CONFIG_EJES";
 const SHEET_CATALOGO = "CATALOGO_ORGANISMOS";
 const SHEET_AUDIT    = "AUDIT_LOG";
-
+ 
 // Columnas CONFIG_EJES (0-indexed para arrays, 1-indexed para la API)
 const COL_NOMBRE        = 0; // A
 const COL_KEYWORDS      = 1; // B
@@ -422,7 +422,7 @@ const COL_DESTINATARIOS = 2; // C
 // D (idx 3) = primer envío, ignorada
 const COL_ORGANISMOS    = 4; // E
 const COL_RESPONSABLES  = 5; // F
-
+ 
 // ============================================================
 // ESTADO
 // ============================================================
@@ -439,11 +439,11 @@ var state = {
   ultimoCambio: null,
 };
 var COLORES = ["#217BEE","#E9724C","#D13B5F","#1a9e6a","#b04aa0","#d48a00"];
-
+ 
 // ============================================================
 // GOOGLE IDENTITY SERVICES — LOGIN
 // ============================================================
-
+ 
 /**
  * Callback de Google Identity Services.
  * Recibe un JWT credential (ID token) tras el login con el botón.
@@ -454,23 +454,23 @@ function handleCredentialResponse(response) {
   try {
     var payload = decodeJWT(response.credential);
     var email   = payload.email || "";
-
+ 
     if (!email.endsWith("@" + DOMINIO_NFQ)) {
       mostrarErrorLogin("Solo se permiten cuentas @" + DOMINIO_NFQ + ". Has iniciado sesión con: " + email);
       return;
     }
-
+ 
     userEmail = email;
-    // Ahora pedimos el access token para poder llamar a la Sheets API
     solicitarAccessToken();
   } catch(e) {
     mostrarErrorLogin("Error al procesar el inicio de sesión: " + e.message);
   }
 }
-
+ 
 /**
  * Lanza el popup OAuth2 con el TokenClient de Google Identity Services.
  * Pide los scopes necesarios para Sheets y Drive.
+ * prompt: "" → solo pide consentimiento la primera vez.
  */
 function solicitarAccessToken() {
   var tokenClient = google.accounts.oauth2.initTokenClient({
@@ -483,18 +483,21 @@ function solicitarAccessToken() {
         return;
       }
       accessToken = tokenResponse.access_token;
+      // Guardar email en sessionStorage para móvil
+      try { sessionStorage.setItem("nfq_user", userEmail); } catch(e) {}
       iniciarApp();
     },
   });
-  tokenClient.requestAccessToken({ prompt: "consent" });
+  // prompt: "" = no fuerza pantalla de consentimiento si ya fue aceptado
+  tokenClient.requestAccessToken({ prompt: "" });
 }
-
+ 
 function mostrarErrorLogin(msg) {
   var el = document.getElementById("login-error");
   el.textContent = msg;
   el.style.display = "block";
 }
-
+ 
 function logout() {
   google.accounts.oauth2.revoke(accessToken, function() {});
   accessToken = null;
@@ -504,20 +507,20 @@ function logout() {
   document.getElementById("login-screen").style.display = "flex";
   document.getElementById("login-error").style.display  = "none";
 }
-
+ 
 // ============================================================
 // INICIO DE APP
 // ============================================================
-
+ 
 function iniciarApp() {
   document.getElementById("login-screen").style.display = "none";
   document.getElementById("app").style.display          = "block";
   document.getElementById("user-email").textContent     = userEmail;
   document.getElementById("user-initials").textContent  = inicialesEmail(userEmail);
-
+ 
   document.getElementById("modal-cancel-btn").addEventListener("click", cerrarModal);
   document.getElementById("modal-confirm-btn").addEventListener("click", confirmarGuardar);
-
+ 
   mostrarLoading("Cargando configuración...");
   Promise.all([cargarConfigEjes(), cargarCatalogo()])
     .then(function(results) {
@@ -525,14 +528,14 @@ function iniciarApp() {
       state.catalogo = results[1];
       ocultarLoading();
       renderSidebar();
-
+ 
       // Leer parámetro ?eje= de la URL
       var params  = new URLSearchParams(window.location.search);
       var ejeParam = (params.get("eje") || "").trim().toUpperCase();
       var ejeEncontrado = ejeParam
         ? state.ejes.find(function(e) { return e.nombre === ejeParam; }) || null
         : null;
-
+ 
       if (ejeEncontrado) seleccionarEje(ejeEncontrado.nombre);
       else renderSelector();
     })
@@ -542,11 +545,11 @@ function iniciarApp() {
         '<div class="error-banner">Error al cargar los datos: ' + esc(err.message) + '</div>';
     });
 }
-
+ 
 // ============================================================
 // SHEETS API — LECTURA
 // ============================================================
-
+ 
 /**
  * Llama a la Sheets API REST con el access token.
  */
@@ -560,7 +563,7 @@ function sheetsGet(range) {
     return r.json();
   });
 }
-
+ 
 /**
  * Lee CONFIG_EJES y construye el array de ejes con esAdmin para el usuario actual.
  */
@@ -570,28 +573,28 @@ function cargarConfigEjes() {
     return rows.map(function(fila) {
       var nombre = String(fila[COL_NOMBRE] || "").trim().toUpperCase();
       if (!nombre) return null;
-
+ 
       var keywords = String(fila[COL_KEYWORDS] || "")
         .split(",").map(function(k) { return k.trim(); }).filter(Boolean);
-
+ 
       var destinatarios = String(fila[COL_DESTINATARIOS] || "")
         .split(",").map(function(d) { return d.trim(); }).filter(function(d) { return d.includes("@"); });
-
+ 
       var organismos = String(fila[COL_ORGANISMOS] || "")
         .split("|").map(function(o) { return o.trim(); }).filter(Boolean);
-
+ 
       var responsables = String(fila[COL_RESPONSABLES] || "")
         .split(",").map(function(r) { return r.trim(); }).filter(function(r) { return r.includes("@"); });
-
+ 
       var esAdmin = responsables.some(function(r) {
         return r.toLowerCase().trim() === userEmail.toLowerCase().trim();
       });
-
+ 
       return { nombre: nombre, keywords: keywords, destinatarios: destinatarios, organismos: organismos, responsables: responsables, esAdmin: esAdmin };
     }).filter(Boolean);
   });
 }
-
+ 
 /**
  * Lee CATALOGO_ORGANISMOS y devuelve array de nombres.
  */
@@ -601,11 +604,11 @@ function cargarCatalogo() {
     return rows.map(function(r) { return String(r[0] || "").trim(); }).filter(Boolean).sort(function(a,b) { return a.localeCompare(b, "es"); });
   }).catch(function() { return []; }); // catálogo opcional
 }
-
+ 
 // ============================================================
 // SHEETS API — ESCRITURA
 // ============================================================
-
+ 
 /**
  * Escribe un valor en una celda específica.
  */
@@ -624,7 +627,7 @@ function sheetsUpdate(range, values) {
     return r.json();
   });
 }
-
+ 
 /**
  * Añade una fila al AUDIT_LOG.
  */
@@ -644,7 +647,7 @@ function escribirAuditLog(eje, tipo, anterior, nuevo) {
     });
   }).catch(function() {}); // no bloquear el guardado si el audit log falla
 }
-
+ 
 /**
  * Busca la fila de un eje en CONFIG_EJES y devuelve el número de fila (1-indexed).
  * Fila 1 = cabecera, datos desde fila 2.
@@ -660,7 +663,7 @@ function encontrarFilaEje(ejeNombre) {
     throw new Error("Eje \"" + ejeNombre + "\" no encontrado en el Sheet.");
   });
 }
-
+ 
 /**
  * Guarda los cambios de un eje en CONFIG_EJES.
  * Escribe columnas B (keywords), C (destinatarios), E (organismos).
@@ -669,16 +672,16 @@ function encontrarFilaEje(ejeNombre) {
 function guardarEje(ejeNombre, kwNuevos, destNuevos, orgNuevos) {
   var ejeActual = state.ejes.find(function(e) { return e.nombre === ejeNombre; });
   if (!ejeActual) return Promise.reject(new Error("Eje no encontrado en estado local."));
-
+ 
   // Verificar permisos localmente también
   if (!ejeActual.esAdmin) return Promise.reject(new Error("No tienes permisos para editar este eje."));
-
+ 
   return encontrarFilaEje(ejeNombre).then(function(fila) {
     // Escribir B, C, E en la misma fila
     var rangeB = SHEET_CONFIG + "!B" + fila;
     var rangeC = SHEET_CONFIG + "!C" + fila;
     var rangeE = SHEET_CONFIG + "!E" + fila;
-
+ 
     return Promise.all([
       sheetsUpdate(rangeB, [[kwNuevos.join(", ")]]),
       sheetsUpdate(rangeC, [[destNuevos.join(", ")]]),
@@ -699,17 +702,17 @@ function guardarEje(ejeNombre, kwNuevos, destNuevos, orgNuevos) {
     return Promise.all(audits);
   });
 }
-
+ 
 // ============================================================
 // RENDER — SIDEBAR
 // ============================================================
-
+ 
 function renderSidebar() {
   var admins  = state.ejes.filter(function(e) { return e.esAdmin; });
   var soloLec = state.ejes.filter(function(e) { return !e.esAdmin; });
   var cont    = document.getElementById("sidebar-ejes");
   cont.innerHTML = "";
-
+ 
   function mkBtn(eje, idx) {
     var btn = document.createElement("button");
     btn.className   = "eje-btn" + (eje.esAdmin ? "" : " readonly");
@@ -721,22 +724,22 @@ function renderSidebar() {
     btn.addEventListener("click", function() { seleccionarEje(eje.nombre); });
     cont.appendChild(btn);
   }
-
+ 
   admins.forEach(function(e, i) { mkBtn(e, i); });
   if (admins.length > 0 && soloLec.length > 0) {
     var hr = document.createElement("hr"); hr.className = "sidebar-div"; cont.appendChild(hr);
   }
   soloLec.forEach(function(e, i) { mkBtn(e, admins.length + i); });
 }
-
+ 
 // ============================================================
 // RENDER — SELECTOR
 // ============================================================
-
+ 
 function renderSelector() {
   state.ejeActivo = null;
   document.querySelectorAll(".eje-btn").forEach(function(b) { b.classList.remove("active"); });
-
+ 
   var tarjetas = state.ejes.map(function(eje, idx) {
     var kw = eje.keywords.slice(0, 3).join(", ") + (eje.keywords.length > 3 ? "... (+" + (eje.keywords.length - 3) + ")" : "");
     var dc = eje.destinatarios.length;
@@ -749,16 +752,16 @@ function renderSelector() {
       '<span class="eje-selector-badge ' + (eje.esAdmin ? 'badge-admin' : 'badge-ro') + '">' + (eje.esAdmin ? 'admin' : 'solo lectura') + '</span>' +
       '</div>';
   }).join("");
-
+ 
   document.getElementById("main-content").innerHTML =
     '<div class="eje-selector-intro"><h1>Selecciona un eje funcional</h1><p>Gestiona las palabras clave, organismos y destinatarios de cada eje.</p></div>' +
     '<div class="eje-selector-grid">' + tarjetas + '</div>';
 }
-
+ 
 // ============================================================
 // RENDER — EJE
 // ============================================================
-
+ 
 function seleccionarEje(nombre) {
   var eje = state.ejes.find(function(e) { return e.nombre === nombre; });
   if (!eje) return;
@@ -770,9 +773,9 @@ function seleccionarEje(nombre) {
   document.querySelectorAll(".eje-btn").forEach(function(b) { b.classList.toggle("active", b.dataset.eje === nombre); });
   renderMain(eje);
 }
-
+ 
 function volverAlSelector() { renderSelector(); }
-
+ 
 function renderMain(eje) {
   var uch = state.ultimoCambio
     ? 'Último cambio guardado: <strong>' + esc(state.ultimoCambio) + '</strong>'
@@ -789,7 +792,7 @@ function renderMain(eje) {
   var as = eje.esAdmin
     ? '<button class="btn-save" id="save-btn"><svg viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>Guardar cambios</button>'
     : '';
-
+ 
   document.getElementById("main-content").innerHTML =
     '<button class="page-back" onclick="volverAlSelector()"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>Todos los ejes</button>' +
     '<div class="page-header">' +
@@ -799,11 +802,11 @@ function renderMain(eje) {
     '<div class="card"><div class="card-head"><div class="card-icon"><svg viewBox="0 0 24 24"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg></div><div class="card-head-text"><div class="card-title">Palabras clave</div><div class="card-sub">Se buscan en el nombre del organismo licitante (lógica OR)</div></div></div><div class="card-body"><div class="kw-field" id="kw-field"></div>' + ak + '</div></div>' +
     '<div class="card"><div class="card-head"><div class="card-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><div class="card-head-text"><div class="card-title">Organismos seleccionados</div><div class="card-sub">Matching exacto con el catálogo (lógica OR con keywords)</div></div></div><div class="card-body"><div class="kw-field" id="org-selected-chips" style="margin-bottom:12px;"></div><input class="org-search" id="org-search" type="text" placeholder="Buscar organismo en el catálogo..."/><div class="org-list" id="org-list"></div><div class="org-count" id="org-count"></div></div></div>' +
     '<div class="card"><div class="card-head"><div class="card-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div><div class="card-head-text"><div class="card-title">Destinatarios</div><div class="card-sub">Recibirán el comunicado diario de este eje</div></div></div><div class="card-body"><div class="dest-list" id="dest-list"></div>' + ad + '</div><div class="action-bar"><div class="action-bar-meta" id="action-meta">' + uch + '</div>' + as + '</div></div>';
-
+ 
   renderKeywords();
   renderOrgList();
   renderDests();
-
+ 
   if (eje.esAdmin) {
     document.getElementById("kw-add-btn").addEventListener("click", addKeyword);
     document.getElementById("kw-input").addEventListener("keydown", function(e) { if (e.key === "Enter") addKeyword(); });
@@ -820,7 +823,7 @@ function renderMain(eje) {
     renderOrgList();
   });
 }
-
+ 
 // ── Keywords ─────────────────────────────────────────────────
 function renderKeywords() {
   var f = document.getElementById("kw-field"); if (!f) return;
@@ -836,20 +839,20 @@ function addKeyword() {
   state.kwEdit.push(val); input.value = ""; renderKeywords();
 }
 function removeKeyword(idx) { state.kwEdit.splice(idx, 1); renderKeywords(); }
-
+ 
 // ── Organismos ───────────────────────────────────────────────
 function renderOrgList() {
   var list  = document.getElementById("org-list");
   var count = document.getElementById("org-count");
   var chips = document.getElementById("org-selected-chips");
   if (!list) return;
-
+ 
   var eje     = state.ejes.find(function(e) { return e.nombre === state.ejeActivo; });
   var esAdmin = eje && eje.esAdmin;
   var vis     = state.catalogo.filter(function(o) {
     return !state.orgFiltro || o.toLowerCase().indexOf(state.orgFiltro) !== -1;
   });
-
+ 
   if (chips) {
     chips.innerHTML = state.orgEdit.length === 0
       ? '<span style="font-size:12px;color:var(--muted);padding:4px;">Sin organismos seleccionados</span>'
@@ -858,25 +861,25 @@ function renderOrgList() {
             (esAdmin ? '<button onclick="deseleccionarOrg(' + i + ')" title="Deseleccionar">&times;</button>' : '') + '</span>';
         }).join("");
   }
-
+ 
   list.innerHTML = vis.slice(0, 80).map(function(org) {
     var sel = state.orgEdit.indexOf(org) !== -1;
     return '<div class="org-item' + (sel ? ' sel' : '') + '" data-org="' + org.replace(/"/g, '&quot;') + '">' +
       '<div class="org-cb"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>' +
       '<span class="org-name">' + esc(org) + '</span></div>';
   }).join("") || '<div style="padding:16px;text-align:center;font-size:12px;color:var(--muted);">Sin resultados</div>';
-
+ 
   if (esAdmin) {
     list.querySelectorAll(".org-item").forEach(function(el) {
       el.addEventListener("click", function() { toggleOrg(el.dataset.org); });
     });
   }
-
+ 
   if (count) count.textContent = state.orgEdit.length + ' seleccionados · ' + state.catalogo.length + ' en catálogo' + (state.orgFiltro ? ' · ' + vis.length + ' visibles' : '');
 }
 function deseleccionarOrg(idx) { state.orgEdit.splice(idx, 1); renderOrgList(); }
 function toggleOrg(n) { var i = state.orgEdit.indexOf(n); if (i === -1) state.orgEdit.push(n); else state.orgEdit.splice(i, 1); renderOrgList(); }
-
+ 
 // ── Destinatarios ────────────────────────────────────────────
 function renderDests() {
   var list = document.getElementById("dest-list"); if (!list) return;
@@ -899,15 +902,15 @@ function addDest() {
   state.destEdit.push(val); input.value = ""; renderDests();
 }
 function removeDest(idx) { state.destEdit.splice(idx, 1); renderDests(); }
-
+ 
 // ============================================================
 // MODAL DE CONFIRMACIÓN
 // ============================================================
-
+ 
 function abrirModal() {
   var eje = state.ejes.find(function(e) { return e.nombre === state.ejeActivo; }); if (!eje) return;
   document.getElementById("modal-title").textContent = "Confirmar cambios en " + eje.nombre;
-
+ 
   function fila(label, antes, despues) {
     var c = antes !== despues;
     return '<div class="modal-change-row">' +
@@ -916,39 +919,39 @@ function abrirModal() {
         (c ? '<strong style="color:var(--crimson);">Antes:</strong> ' + esc(antes) + '<br><strong style="color:#1a7f4b;">Ahora:</strong> ' + esc(despues) : 'Sin cambios') +
       '</span></div>';
   }
-
+ 
   document.getElementById("modal-changes").innerHTML =
     fila("Palabras clave",  eje.keywords.join(", ")      || "(vacío)", state.kwEdit.join(", ")   || "(vacío)") +
     fila("Organismos",      eje.organismos.join(", ")    || "(vacío)", state.orgEdit.join(", ")  || "(vacío)") +
     fila("Destinatarios",   eje.destinatarios.join(", ") || "(vacío)", state.destEdit.join(", ") || "(vacío)");
-
+ 
   document.getElementById("modal-overlay").classList.add("show");
 }
-
+ 
 function cerrarModal() {
   document.getElementById("modal-overlay").classList.remove("show");
 }
-
+ 
 function confirmarGuardar() {
   cerrarModal();
-
-  // Detectar emails nuevos ANTES de guardar (comparar con estado actual)
+ 
+  // Detectar emails nuevos ANTES de guardar
   var eje = state.ejes.find(function(e) { return e.nombre === state.ejeActivo; });
   var destAnteriores = eje ? eje.destinatarios.map(function(e) { return e.toLowerCase().trim(); }) : [];
   var emailsNuevos   = state.destEdit.filter(function(e) {
     return !destAnteriores.includes(e.toLowerCase().trim());
   });
-
+ 
   mostrarLoading("Guardando cambios...");
-
+ 
   guardarEje(state.ejeActivo, state.kwEdit, state.destEdit, state.orgEdit)
     .then(function() {
       // Actualizar estado local
-      var eje = state.ejes.find(function(e) { return e.nombre === state.ejeActivo; });
-      if (eje) {
-        eje.keywords      = state.kwEdit.slice();
-        eje.destinatarios = state.destEdit.slice();
-        eje.organismos    = state.orgEdit.slice();
+      var ejeActualizado = state.ejes.find(function(e) { return e.nombre === state.ejeActivo; });
+      if (ejeActualizado) {
+        ejeActualizado.keywords      = state.kwEdit.slice();
+        ejeActualizado.destinatarios = state.destEdit.slice();
+        ejeActualizado.organismos    = state.orgEdit.slice();
       }
       var ahora = new Date().toLocaleTimeString("es-ES", { hour: "2-digit", minute: "2-digit" });
       state.ultimoCambio = "hoy, " + ahora + "h";
@@ -956,7 +959,7 @@ function confirmarGuardar() {
       if (meta) meta.innerHTML = 'Último cambio guardado: <strong>' + state.ultimoCambio + '</strong>';
       ocultarLoading();
       showToast("Cambios guardados correctamente", "ok");
-
+ 
       // Disparar bienvenida si hay emails nuevos
       if (emailsNuevos.length > 0) {
         dispararBienvenida(state.ejeActivo, emailsNuevos);
@@ -967,36 +970,35 @@ function confirmarGuardar() {
       showToast("Error: " + err.message, "err");
     });
 }
-
+ 
 function dispararBienvenida(ejeNombre, emailsNuevos) {
+  // El Web App de Apps Script no acepta POST cross-origin (CORS).
+  // Usamos GET con parámetros — no hay preflight y llega correctamente.
+  // Usamos mode: no-cors porque no necesitamos leer la respuesta.
   var WEBAPP_URL = "https://script.google.com/a/macros/nfq.es/s/AKfycbxO1AIZ1KfBRKKQ1u_kcjLL_--OTxPDhhoDqyabYc5RwhJKVnuqjF9rhvKqpt9FgVCU9A/exec";
-
-  fetch(WEBAPP_URL, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      accion:  "enviarbienvenida",
-      eje:     ejeNombre,
-      emails:  emailsNuevos,
-    }),
+ 
+  var params = new URLSearchParams({
+    accion: "enviarbienvenida",
+    eje:    ejeNombre,
+    emails: emailsNuevos.join(","),
+  });
+ 
+  fetch(WEBAPP_URL + "?" + params.toString(), {
+    method: "GET",
+    mode:   "no-cors",
   })
-  .then(function(r) { return r.json(); })
-  .then(function(res) {
-    if (res.ok) {
-      showToast("Bienvenida enviada a " + emailsNuevos.length + " destinatario(s)", "ok");
-    } else {
-      console.warn("Bienvenida no enviada:", res.error);
-    }
+  .then(function() {
+    showToast("Bienvenida en proceso para " + emailsNuevos.length + " destinatario(s)", "ok");
   })
   .catch(function(err) {
-    console.warn("Error llamando al Web App para bienvenida:", err.message);
+    console.warn("Error disparando bienvenida:", err.message);
   });
 }
-
+ 
 // ============================================================
 // UTILIDADES UI
 // ============================================================
-
+ 
 function mostrarLoading(txt) {
   document.getElementById("loading-text").textContent = txt || "Procesando...";
   document.getElementById("loading").classList.add("show");
@@ -1018,7 +1020,7 @@ function inicialesEmail(e) {
   var p = String(e || "").split("@")[0].split(".");
   return p.length >= 2 ? (p[0][0] + p[1][0]).toUpperCase() : String(e || "?")[0].toUpperCase();
 }
-
+ 
 // ============================================================
 // DECODE JWT (sin librería — solo para leer el payload del ID token)
 // ============================================================
@@ -1032,3 +1034,4 @@ function decodeJWT(token) {
 </script>
 </body>
 </html>
+ 
