@@ -280,26 +280,43 @@ window.addEventListener("load", function() {
     }
   }
  
-  // Caso 2: sesión guardada en localStorage (persiste entre visitas)
+// Caso 2: sesión guardada en localStorage
 var savedToken  = localStorage.getItem("nfq_token");
 var savedEmail  = localStorage.getItem("nfq_email");
 var savedExpira = parseInt(localStorage.getItem("nfq_expira") || "0", 10);
 
 if (savedToken && savedEmail && Date.now() < savedExpira) {
-  accessToken = savedToken;
-  userEmail   = savedEmail;
-  mostrarLoadingLogin();
-  arrancarApp();
+  // Verificar que el token sigue siendo válido antes de usarlo
+  fetch("https://www.googleapis.com/oauth2/v3/tokeninfo?access_token=" + savedToken)
+    .then(function(r) { return r.json(); })
+    .then(function(info) {
+      if (!info.email || !info.email.endsWith("@" + DOMINIO_NFQ)) {
+        throw new Error("Token inválido");
+      }
+      accessToken = savedToken;
+      userEmail   = savedEmail;
+      document.getElementById("login-screen").style.display = "none";
+      document.getElementById("app").style.display = "block";
+      arrancarApp();
+    })
+    .catch(function() {
+      // Token inválido o expirado — limpiar y mostrar login
+      localStorage.removeItem("nfq_token");
+      localStorage.removeItem("nfq_email");
+      localStorage.removeItem("nfq_expira");
+      document.getElementById("login-loading").classList.remove("show");
+      document.getElementById("btn-google-login").style.display = "flex";
+    });
   return;
 }
 
-// Token expirado — limpiar
+// Token expirado por timestamp — limpiar
 if (savedToken) {
   localStorage.removeItem("nfq_token");
   localStorage.removeItem("nfq_email");
   localStorage.removeItem("nfq_expira");
 }
- 
+  
   // Caso 3: mostrar login normal
 });
  
