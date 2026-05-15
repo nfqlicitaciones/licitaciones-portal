@@ -283,16 +283,49 @@ window.addEventListener("load", function() {
     }
   }
  
-  // Caso 2: sesión guardada en sessionStorage
-  var savedToken = sessionStorage.getItem("nfq_token");
-  var savedEmail = sessionStorage.getItem("nfq_email");
-  if (savedToken && savedEmail) {
-    accessToken = savedToken;
-    userEmail   = savedEmail;
-    mostrarLoadingLogin();
-    arrancarApp();
-    return;
-  }
+// Caso 2: sesión guardada en localStorage
+var savedToken  = localStorage.getItem("nfq_token");
+var savedEmail  = localStorage.getItem("nfq_email");
+var savedExpira = parseInt(localStorage.getItem("nfq_expira") || "0", 10);
+
+if (savedToken && savedEmail && Date.now() < savedExpira) {
+  // Verificar que el token sigue siendo válido antes de usarlo
+  fetch("https://www.googleapis.com/oauth2/v3/tokeninfo?access_token=" + savedToken)
+    .then(function(r) { return r.json(); })
+    .then(function(info) {
+      if (!info.email || !info.email.endsWith("@" + DOMINIO_NFQ)) {
+        throw new Error("Token inválido");
+      }
+      accessToken = savedToken;
+      userEmail   = savedEmail;
+      document.getElementById("login-screen").style.display = "none";
+      document.getElementById("app").style.display = "block";
+      arrancarApp();
+    })
+    .catch(function() {
+      // Token inválido o expirado — limpiar y mostrar login
+      localStorage.removeItem("nfq_token");
+      localStorage.removeItem("nfq_email");
+      localStorage.removeItem("nfq_expira");
+      document.getElementById("login-loading").classList.remove("show");
+      document.getElementById("btn-google-login").style.display = "flex";
+    });
+  return;
+}
+
+// Token expirado por timestamp — limpiar
+if (savedToken) {
+  localStorage.removeItem("nfq_token");
+  localStorage.removeItem("nfq_email");
+  localStorage.removeItem("nfq_expira");
+}
+
+// Token expirado — limpiar
+if (savedToken) {
+  localStorage.removeItem("nfq_token");
+  localStorage.removeItem("nfq_email");
+  localStorage.removeItem("nfq_expira");
+}
  
   // Caso 3: mostrar login normal
 });
@@ -336,14 +369,22 @@ function iniciarPopupFlow() {
  
 // ── REDIRECT FLOW (móvil) ─────────────────────────────────────
 function iniciarRedirectFlow() {
-  var params = new URLSearchParams({
+  // Guardar el eje actual antes de redirigir
+  var params = new URLSearchParams(window.location.search);
+  var ejeActual = params.get("eje") || "";
+  if (ejeActual) {
+    try { localStorage.setItem("nfq_pending_eje", ejeActual); } catch(e) {}
+  }
+
+  var authParams = new URLSearchParams({
     client_id:     CLIENT_ID,
     redirect_uri:  REDIRECT_URI,
     response_type: "token",
-    scope:         SCOPES,
+    scope:         "openid email profile " + SCOPES,
     prompt:        "select_account",
+    hd:            DOMINIO_NFQ,
   });
-  window.location.href = "https://accounts.google.com/o/oauth2/v2/auth?" + params.toString();
+  window.location.href = "https://accounts.google.com/o/oauth2/v2/auth?" + authParams.toString();
 }
  
 // ── VERIFICACIÓN TOKEN ────────────────────────────────────────
@@ -358,7 +399,16 @@ function verificarTokenYArrancar(token) {
       }
       accessToken = token;
       userEmail   = email;
-      try { sessionStorage.setItem("nfq_token", token); sessionStorage.setItem("nfq_email", email); } catch(e) {}
+
+      // Guardar en localStorage con expiración de 55 minutos
+      // (tokens de Google duran 60 min, dejamos margen)
+      var expira = Date.now() + 55 * 60 * 1000;
+      try {
+        localStorage.setItem("nfq_token",  token);
+        localStorage.setItem("nfq_email",  email);
+        localStorage.setItem("nfq_expira", String(expira));
+      } catch(e) {}
+
       document.getElementById("login-screen").style.display = "none";
       document.getElementById("app").style.display = "block";
       arrancarApp();
@@ -384,7 +434,10 @@ function mostrarErrorLoginConReset(msg) {
 }
  
 function logout() {
-  sessionStorage.removeItem("nfq_token"); sessionStorage.removeItem("nfq_email");
+  localStorage.removeItem("nfq_token");
+  localStorage.removeItem("nfq_email");
+  localStorage.removeItem("nfq_expira");
+  localStorage.removeItem("nfq_pending_eje");
   accessToken = null; userEmail = null;
   state = { ejes:[], catalogo:[], ejeActivo:null, kwEdit:[], destEdit:[], orgEdit:[], orgFiltro:"", ultimoCambio:null };
   document.getElementById("app").style.display = "none";
@@ -399,23 +452,42 @@ function arrancarApp() {
   document.getElementById("user-email").textContent    = userEmail;
   document.getElementById("user-initials").textContent = inicialesEmail(userEmail);
   mostrarLoading("Cargando configuración...");
- 
+
   Promise.all([cargarConfigEjes(), cargarCatalogo()])
     .then(function(results) {
       state.ejes = results[0]; state.catalogo = results[1];
       ocultarLoading(); renderSidebar();
-      var params = new URLSearchParams(window.location.search);
+
+      // Parámetro eje: primero de la URL, luego del localStorage (redirect móvil)
+      var params   = new URLSearchParams(window.location.search);
       var ejeParam = (params.get("eje") || "").trim().toUpperCase();
-      var ejeEncontrado = ejeParam ? state.ejes.find(function(e) { return e.nombre === ejeParam; }) : null;
-      if (ejeEncontrado) seleccionarEje(ejeEncontrado.nombre); else renderSelector();
+
+      if (!ejeParam) {
+        try {
+          ejeParam = (localStorage.getItem("nfq_pending_eje") || "").trim().toUpperCase();
+          localStorage.removeItem("nfq_pending_eje");
+        } catch(e) {}
+      }
+
+      var ejeEncontrado = ejeParam
+        ? state.ejes.find(function(e) { return e.nombre === ejeParam; })
+        : null;
+
+      if (ejeEncontrado) seleccionarEje(ejeEncontrado.nombre);
+      else renderSelector();
     })
     .catch(function(err) {
       ocultarLoading();
       if (err.message && err.message.includes("401")) {
-        sessionStorage.removeItem("nfq_token"); sessionStorage.removeItem("nfq_email");
-        logout(); mostrarErrorLoginConReset("Tu sesión ha expirado. Inicia sesión de nuevo."); return;
+        localStorage.removeItem("nfq_token");
+        localStorage.removeItem("nfq_email");
+        localStorage.removeItem("nfq_expira");
+        logout();
+        mostrarErrorLoginConReset("Tu sesión ha expirado. Inicia sesión de nuevo.");
+        return;
       }
-      document.getElementById("main-content").innerHTML = '<div class="error-banner">Error al cargar los datos: ' + esc(err.message) + '</div>';
+      document.getElementById("main-content").innerHTML =
+        '<div class="error-banner">Error al cargar los datos: ' + esc(err.message) + '</div>';
     });
 }
  
@@ -482,12 +554,26 @@ function guardarEje(ejeNombre, kwNuevos, destNuevos, orgNuevos) {
   var eje = state.ejes.find(function(e){return e.nombre===ejeNombre;});
   if (!eje) return Promise.reject(new Error("Eje no encontrado."));
   if (!eje.esAdmin) return Promise.reject(new Error("Sin permisos."));
+
+  // Detectar emails nuevos antes de guardar
+  var destAnteriores = eje.destinatarios.map(function(e){return e.toLowerCase().trim();});
+  var emailsNuevos   = destNuevos.filter(function(e){
+    return !destAnteriores.includes(e.toLowerCase().trim());
+  });
+
   return encontrarFilaEje(ejeNombre).then(function(fila) {
-    return Promise.all([
+    var writes = [
       sheetsUpdate(SHEET_CONFIG+"!B"+fila, [[kwNuevos.join(", ")]]),
       sheetsUpdate(SHEET_CONFIG+"!C"+fila, [[destNuevos.join(", ")]]),
       sheetsUpdate(SHEET_CONFIG+"!E"+fila, [[orgNuevos.join(" | ")]]),
-    ]);
+    ];
+
+    // Si hay emails nuevos, escribirlos en columna D para disparar la bienvenida
+    if (emailsNuevos.length > 0) {
+      writes.push(sheetsUpdate(SHEET_CONFIG+"!D"+fila, [[emailsNuevos.join(", ")]]));
+    }
+
+    return Promise.all(writes);
   }).then(function() {
     var audits=[];
     if (kwNuevos.join(",")!==eje.keywords.join(","))       audits.push(escribirAuditLog(ejeNombre,"keywords",eje.keywords.join(", "),kwNuevos.join(", ")));
@@ -614,11 +700,8 @@ function cerrarModal(){document.getElementById("modal-overlay").classList.remove
  
 function confirmarGuardar() {
   cerrarModal();
-  var eje=state.ejes.find(function(e){return e.nombre===state.ejeActivo;});
-  var destAnteriores=eje?eje.destinatarios.map(function(e){return e.toLowerCase().trim();}):[];
-  var emailsNuevos=state.destEdit.filter(function(e){return !destAnteriores.includes(e.toLowerCase().trim());});
   mostrarLoading("Guardando cambios...");
-  guardarEje(state.ejeActivo,state.kwEdit,state.destEdit,state.orgEdit)
+  guardarEje(state.ejeActivo, state.kwEdit, state.destEdit, state.orgEdit)
     .then(function(){
       var ejeAct=state.ejes.find(function(e){return e.nombre===state.ejeActivo;});
       if(ejeAct){ejeAct.keywords=state.kwEdit.slice();ejeAct.destinatarios=state.destEdit.slice();ejeAct.organismos=state.orgEdit.slice();}
@@ -626,8 +709,8 @@ function confirmarGuardar() {
       state.ultimoCambio="hoy, "+ahora+"h";
       var meta=document.getElementById("action-meta");
       if(meta)meta.innerHTML='Último cambio guardado: <strong>'+state.ultimoCambio+'</strong>';
-      ocultarLoading(); showToast("Cambios guardados correctamente","ok");
-      if(emailsNuevos.length>0)dispararBienvenida(state.ejeActivo,emailsNuevos);
+      ocultarLoading();
+      showToast("Cambios guardados correctamente","ok");
     })
     .catch(function(err){ocultarLoading();showToast("Error: "+err.message,"err");});
 }
